@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+
+{#{% load staticfiles %}#}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <img src="https://app.tmsgo.cl/assets/logo_tms.svg" height="40px" />
+    </a>
+</h1>
+{#    {% load flags %}#}
+{#    {% languages 'square' %}#}
+
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
