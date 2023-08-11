@@ -1,0 +1,75 @@
+.metrics{
+    background-color: #f8f8f8;
+}
+
+.provider-chart{
+    
+    // 
+    ion-card{
+        display: inline-block;
+        background-color: white;
+        // margin: 13px;
+        margin-inline: unset;
+        width: 100%;
+        transition: 0.6s;
+        cursor: pointer;
+
+        &:hover{
+            box-shadow: 1px 1px 2px #cccccc;;
+            opacity: 0.8;
+        }
+
+        ion-card-title{
+            font-size: 15px;
+        }
+
+        .globe{
+            display: flex;
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 16px;
+            margin: 8px;
+            color: white;
+            /* text-align: center; */
+            background-color: #CCC;
+            right: 0;
+            top: 0;
+        }
+
+        .line-chart{
+            background-color: #ccc;
+            width: 100%;
+            max-width: 100%;
+            height: 4px;
+            border-radius: 12px;
+            overflow: hidden;
+            
+        
+            .line-value{
+                background-color: green;
+                height: 100%;
+            }
+        }
+        
+        .line-text{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+        
+            .left, .rigth{
+                margin: 10px 0;
+                font-size: 11px;
+            }
+        
+            .rigth{
+                font-weight: bold;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,253 @@
+<app-header-bar titulo="Servicios">
+</app-header-bar>
+<h1>{{form.value.start_date}}</h1>
+<ion-content>
+  
+  <ion-grid color="light">
+    <!-- search form -->
+    <ion-row>
+      <ion-col size="12">
+        <form [formGroup]="form">
+
+          <!-- search -->
+          <ion-item class="search" lines="none">
+            <ion-searchbar 
+              formControlName="search"
+              (keyup.enter)="getServices()" 
+              mode="ios" 
+              enterkeyhint="enter" 
+              placeholder="Buscar por No. Servicio, patente, contrato, nombre conductor, etc.">
+            </ion-searchbar>
+            <ion-button size="large" (click)="getServices()">Buscar</ion-button>
+          </ion-item>
+          
+          <!-- advanced -->
+          <ion-card color="light" class="advanced sys-card">
+            <!-- header item -->
+            <ion-item  button detail detail-icon="chevron-down" color="light" lines="full"  (click)="util.toogleCard($event)">
+              <ion-icon color="medium" slot="start" name="options"></ion-icon>
+              <ion-text>Avanzado</ion-text>
+            </ion-item>
+            <!-- content item -->
+            <ion-card-content class="card-collapse-off">
+              <ion-grid>
+                <ion-row>
+                  <!-- filter -->
+                  <ion-col size-md="5" size-xs="12">
+
+                    <ion-item class="title" lines="none">
+                      <ion-icon color="medium" slot="start" name="filter"></ion-icon>
+                       <ion-label>Filtros</ion-label>
+                    </ion-item>
+                    
+                    <ion-item color="light" lines="none">
+                      <ion-label position="fixed" color="medium">Fecha desde</ion-label>
+                      <ion-icon name="calendar" color="medium" slot="end"></ion-icon>
+                      <ion-datetime no-padding
+                        formControlName="start_date"
+                        mode="md"
+                        [pickerOptions]="customPickerOptions"
+                        [cancelText]="cancelText"
+                        [doneText]="doneText"
+                        monthShortNames="{{monthShortNames}}"
+                        displayFormat="D MMM YYYY" 
+                        min="{{year}}" 
+                        max="{{+year+1}}" >
+                      </ion-datetime>
+                    </ion-item>
+                    <ion-item color="light" lines="none">
+                      <ion-label position="fixed" color="medium">Fecha hasta</ion-label>
+                      <ion-icon name="calendar" color="medium" slot="end"></ion-icon>
+                      <ion-datetime no-padding
+                        formControlName="end_date"
+                        mode="md"
+                        [pickerOptions]="customPickerOptions"
+                        [cancelText]="cancelText"
+                        [doneText]="doneText"
+                        monthShortNames="{{monthShortNames}}"
+                        displayFormat="D MMM YYYY" 
+                        min="{{year}}" 
+                        max="{{+year+1}}" >
+                      </ion-datetime>
+                    </ion-item>
+                  </ion-col>
+                  <!-- order -->
+                  <ion-col offset-md="1" size-md="5" size-xs="12">
+                    <ion-item class="title" lines="none">
+                      <ion-icon color="medium" slot="start" name="list"></ion-icon>
+                       <ion-label>Orden</ion-label>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <ion-item lines="none" color="light" >
+                <ion-button  color="light" size="small" slot="end" (click)="this.initForm()">
+                  <span>Limpiar</span>
+                </ion-button>
+                <ion-button  size="small" color="primary"  slot="end" (click)="this.getServices()">
+                  <ion-icon  name="funnel-outline"></ion-icon>
+                  <ion-label>Aplicar</ion-label>
+                </ion-button> 
+              </ion-item>
+              
+            </ion-card-content>
+          </ion-card>
+
+        </form>
+      </ion-col>
+    </ion-row>
+    <!-- skeleton -->
+    <ion-row>
+      <ion-col offset-md="4" size-md="4" size-xs="12" id="list-1">
+        <ng-container *ngIf="!is_driver">
+          <ion-text class="message" color="dark"  *ngIf="serviceOrders">
+            <ng-container *ngIf="serviceOrders.length==0 && this.is_driver==false">
+              <span >No existen servicios en este rango de fecha.</span>
+            </ng-container>
+          </ion-text>
+        </ng-container>
+        <ng-container *ngIf="is_driver">
+          <ion-text class="message" color="dark" *ngIf="serviceOrders">
+            <ng-container *ngIf="serviceOrders.length>1"><span >Sus próximos viajes.</span></ng-container>
+            <ng-container *ngIf="serviceOrders.length==1"><span >Su próximo viaje.</span></ng-container>
+            <ng-container *ngIf="serviceOrders.length==0"><span >No tiene viajes asignados próximamente.</span></ng-container>
+          </ion-text>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+    <!-- grid -->
+    <ion-row>
+      <ion-col size="12">
+        <ion-list *ngIf="serviceOrders">
+          <ion-card *ngFor="let item of this.serviceOrders" color="light" class="sys-card">
+            <!-- header item -->
+            <ion-item class="card-header" button detail detail-icon="chevron-down" color="light" lines="full" (click)="util.toogleCard($event)">
+              <ion-badge *ngIf="item.type" slot="start" class="circle">
+                <h2>{{ item.type.code }}</h2> 
+              </ion-badge>
+              <ion-text><h5>Servicio No. </h5></ion-text>
+              <ion-badge size="small" color="light" >
+                {{ (item.type ? item.type.code : '') + item.id }}
+              </ion-badge>
+              <ion-badge *ngIf="item.status" size="small" slot="end" [ngStyle]=" item.status ? util.setStyleTextColor(item.status.color) : ''">
+                {{item.status.description}}
+              </ion-badge>
+            </ion-item>
+            <ion-card-content class="card-collapse-100-off">
+                <div class="card-content-inline">
+                  <!-- details item -->
+                  <span class="pipe">
+                    <ion-icon color="medium"  name="calendar"></ion-icon> 
+                    <ion-label>Tipo servicio:</ion-label>
+                    <ion-chip *ngIf="item.type" class="chip-small">
+                      <ion-label>{{ item.type.name }}</ion-label>
+                    </ion-chip>
+                </span>
+
+                  <span class="pipe">
+                      <ion-icon color="medium"  name="calendar"></ion-icon> 
+                      <ion-label>Fecha de salida:</ion-label>
+                      <ion-chip class="chip-small">
+                        <ion-label>{{util.getDateFormat(item.service_date)}}</ion-label>
+                      </ion-chip>
+                  </span>
+  
+                  <span class="pipe" *ngIf="item.estimated_closing_date">
+                      <ion-icon color="medium"  name="calendar"></ion-icon> 
+                      <ion-label>Llegada estimada:</ion-label>
+                      <ion-chip size="small" class="chip-small">
+                        <ion-label>{{util.getDateFormat(item.estimated_closing_date)}}</ion-label>
+                      </ion-chip>
+                  </span>
+
+                  <span class="pipe" *ngIf="item.equipments">
+                    <ion-icon color="medium"  name="calendar"></ion-icon> 
+                    <ion-label class="fixed">Equipo(s):</ion-label>
+                    <small>
+                      <ion-chip size="small" class="chip-small" *ngFor="let e of item.equipments; let i = index;">
+                      <ion-label>{{e.equipment.patent}}</ion-label>
+                    </ion-chip>
+                    </small>
+                  </span>
+
+                  <span class="pipe" *ngIf="item.drivers">
+                    <ion-icon color="medium"  name="calendar"></ion-icon> 
+                    <ion-label class="fixed">Conductor(es):</ion-label>
+                    <small>
+                      <ion-chip size="small" class="chip-small" *ngFor="let d of item.drivers; let i = index;">
+                        <ion-label *ngIf="d.driver.user_profile">
+                          {{(i+1)}}. 
+                          {{d.driver.user_profile.user.first_name}}
+                          {{d.driver.user_profile.user.last_name}}
+                        </ion-label>
+                      </ion-chip>
+                    </small>
+                    
+                  </span>
+                  <!-- travels line -->
+                  <ion-item color="light" lines="none" class="line">
+                    <ion-icon slot="start" color="medium" name="rocket-outline"></ion-icon>
+                    <ion-label color="medium">Viaje:</ion-label>
+                    <ion-item slot="end" color="light">
+                      <ion-label>Cargado?</ion-label>
+                      <ion-toggle size="small" color="warning"></ion-toggle>
+                    </ion-item>
+                  </ion-item>
+
+                  <span class="pipe">
+                    <ion-icon color="medium"  name="calendar"></ion-icon> 
+                    <ion-label>Origen:</ion-label>
+                    <app-btn-subsidiary *ngIf="item.origin"
+                      [subsidiary]='item.origin'>
+                    </app-btn-subsidiary>
+                  </span>
+
+                  <span class="pipe">
+                    <ion-icon color="medium"  name="calendar"></ion-icon> 
+                    <ion-label>Destino:</ion-label>
+                    <app-btn-subsidiary *ngIf="item.destination"
+                      [subsidiary]='item.destination'>
+                    </app-btn-subsidiary>
+                  </span>
+
+                </div>
+            </ion-card-content>
+            <!-- footer item -->
+            <ion-item class="btn-responsive" lines="none" color="light" >
+              <ion-button color="light" size="small" slot="end"  (click)="edit(item)" *ngIf="is_admin">
+                <ion-icon name="create-outline" class="icon"></ion-icon>
+                <ion-label class="icon">Editar</ion-label>
+              </ion-button>
+
+              <ion-button color="light" size="small" slot="end" (click)="presentModalDetail(item)">
+                <ion-icon name="eye"></ion-icon>
+                <ion-label>Ver detalles</ion-label>
+              </ion-button>
+
+              <ng-container *ngTemplateOutlet="memberTemplate; context:{o: checkStatus(item) }">
+              </ng-container>
+              <ng-template #memberTemplate let-btn="o">
+                <ng-container *ngIf="btn">
+                  <ion-button  color="{{btn.color}}" size="small"  slot="end"  (click)="presentModalEvents(item)">
+                    <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+                    <span>{{btn.text}}</span>
+                  </ion-button>
+                </ng-container>
+              </ng-template>
+            </ion-item>
+          </ion-card>
+        </ion-list>
+        <!-- Skeleton screen -->
+        <div *ngIf="isLoading">
+          <div class="ion-padding custom-skeleton">
+            <ion-skeleton-text animated class="skeleton-list"></ion-skeleton-text>
+            <ion-skeleton-text animated class="skeleton-list"></ion-skeleton-text>
+            <ion-skeleton-text animated class="skeleton-list"></ion-skeleton-text>
+            <ion-skeleton-text animated class="skeleton-list"></ion-skeleton-text>
+            <ion-skeleton-text animated class="skeleton-list"></ion-skeleton-text>
+          </div>
+        </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

@@ -1,0 +1,34 @@
+<!-- filter  -->
+
+<form [formGroup]="form">
+  <ion-item color="light" lines="none">
+    <ion-label position="fixed" color="medium">Fecha desde</ion-label>
+    <ion-icon name="calendar" color="medium" slot="end"></ion-icon>
+    <ion-datetime no-padding
+      formControlName="start_date"
+      mode="md"
+      [pickerOptions]="customPickerOptions"
+      [cancelText]="cancelText"
+      [doneText]="doneText"
+      monthShortNames="{{monthShortNames}}"
+      displayFormat="D MMM YYYY" 
+      min="{{year}}" 
+      max="{{+year+1}}" >
+    </ion-datetime>
+  </ion-item>
+  <ion-item color="light" lines="none">
+    <ion-label position="fixed" color="medium">Fecha hasta</ion-label>
+    <ion-icon name="calendar" color="medium" slot="end"></ion-icon>
+    <ion-datetime no-padding
+      formControlName="end_date"
+      mode="md"
+      [pickerOptions]="customPickerOptions"
+      [cancelText]="cancelText"
+      [doneText]="doneText"
+      monthShortNames="{{monthShortNames}}"
+      displayFormat="D MMM YYYY" 
+      min="{{year}}" 
+      max="{{+year+1}}" >
+    </ion-datetime>
+  </ion-item>
+</form>

@@ -1,0 +1,15 @@
+<ng-container *ngIf="subsidiary">
+  <a [href]="geo_ulr_1 | safe: 'url'">
+    <a [href]="geo_ulr_2 | safe: 'url'">
+      <a [href]="geo_ulr_3 | safe: 'url'"> 
+        <ion-chip size="small" class="chip-small">
+          <ion-label>
+            {{subsidiary.name}}
+          </ion-label>
+          <ion-icon *ngIf="status" size="small" name="navigate-circle-outline"></ion-icon>
+        </ion-chip>
+      </a>
+    </a>
+  </a>
+</ng-container>
+

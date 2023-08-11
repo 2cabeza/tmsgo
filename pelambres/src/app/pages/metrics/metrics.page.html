@@ -1,0 +1,214 @@
+
+<app-header-bar titulo="Cuadro de mando de costes">
+</app-header-bar>
+
+<ion-content>
+  <!-- <google-chart 
+  [data]="myData"
+  [columns]="chartColumns"
+  [type]="myType"
+  [title]="myTitle"
+  >
+
+  </google-chart> -->
+  <ion-grid class="container-content top10">
+    <ion-row>
+      <!-- head line -->
+      <ion-col size-md="12" size-xs="12">
+        <ion-card color="primary">
+          <ion-card-header>
+            <ion-card-subtitle>Costos generales</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid class="top10">
+              <ion-row>
+                <!-- item 1 -->
+                <ion-col size-md="3" size-xs="12">
+                   <ion-item color="transparent" lines="none"> 
+                    <ion-label class="ion-text-wrap">
+                      <ion-text color="medium">
+                        <h3>Coste medio por equipo</h3>
+                      </ion-text>
+                      <hr>
+                      <ion-text color="light">
+                        <h1>${{avg_equipment_cost}}</h1>
+                      </ion-text>
+                    </ion-label>
+                  </ion-item>
+                </ion-col>
+
+                <!-- item 2 -->
+                <ion-col size-md="3" size-xs="12">
+                  <ion-item color="transparent" lines="none"> 
+                   <ion-label class="ion-text-wrap">
+                     <ion-text color="medium">
+                       <h3>Coste medio por día</h3>
+                     </ion-text>
+                     <hr>
+                     <ion-text color="light">
+                       <h1>$0</h1>
+                     </ion-text>
+                   </ion-label>
+                 </ion-item>
+               </ion-col>
+
+               <!-- item 2 -->
+               <ion-col size-md="3" size-xs="12">
+                <ion-item color="transparent" lines="none"> 
+                 <ion-label class="ion-text-wrap">
+                   <ion-text color="medium">
+                     <h3>Coste medio por servicio</h3>
+                   </ion-text>
+                   <hr>
+                   <ion-text color="light">
+                     <h1>$0</h1>
+                   </ion-text>
+                 </ion-label>
+               </ion-item>
+             </ion-col>
+
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- end head line -->
+      <!-- tables -->
+      <ion-col size-md="12" size-xs="12">
+        <ion-card color="light">
+          <ion-card-header>
+            <ion-card-subtitle>{{cost_per_equipment_title}}</ion-card-subtitle>
+          </ion-card-header>
+          
+          <ion-card-content>
+            <ion-row>
+              <ion-col size-md="2" size-xs="6">
+                <google-chart
+                  [data]="cost_per_equipment_data"
+                  [columns]="cost_per_equipment_columns"
+                  type="Table"
+                  [options]="options">
+                </google-chart>
+              </ion-col>
+
+              <ion-col size-md="2" size-xs="6">
+                <google-chart
+                  [data]="per_equipment_type_data"
+                  [columns]="per_equipment_type_columns"
+                  type="Table"
+                  [options]="options">
+                </google-chart>
+              </ion-col>
+              
+              <ion-col size-md="2" size-xs="6">
+                <google-chart
+                  [data]="per_service_type_data"
+                  [columns]="per_service_type_columns"
+                  type="Table"
+                  [options]="options">
+                </google-chart>
+              </ion-col>
+
+              <ion-col size-md="2" size-xs="6">
+                <google-chart
+                  [data]="per_cost_type_data"
+                  [columns]="per_cost_type_columns"
+                  type="Table"
+                  [options]="options">
+                </google-chart>
+              </ion-col>
+
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- line 1 -->
+      <!-- left -->
+      <ion-col size-md="4" size-xs="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{per_cost_type_title}}</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <google-chart 
+              [data]="per_cost_type_data"
+              [columns]="per_cost_type_columns"
+              type="PieChart"
+              [options]="options"
+            >
+
+            </google-chart>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- right -->
+      <ion-col size-md="4" size-xs="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{per_equipment_type_title}}</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <google-chart 
+              [data]="per_equipment_type_data"
+              [columns]="per_equipment_type_columns"
+              type="PieChart"
+              [options]="options"
+            >
+
+            </google-chart>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- end line 1 -->
+
+      <!-- line 2 -->
+      <!-- left -->
+      <ion-col size-md="4" size-xs="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{per_cost_type_title}} ($pesos)</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <google-chart 
+              [data]="per_cost_type_data"
+              [columns]="per_cost_type_columns"
+              type="ColumnChart"
+              [options]="options"
+              >
+            </google-chart>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- right -->
+      <ion-col size-md="4" size-xs="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{per_service_type_title}}</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <google-chart 
+              [data]="per_service_type_data"
+              [columns]="per_service_type_columns"
+              type="PieChart"
+              [options]="options"
+            >
+
+            </google-chart>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+
+
+ 

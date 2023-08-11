@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start" *ngIf="back">
+      <ion-back-button defaultHref="{{href}}" [text]="text"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+     <h1>
+      {{titulo}}
+     </h1>
+    </ion-title>
+    <ion-buttons size="large" slot="end">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

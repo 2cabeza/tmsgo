@@ -1,0 +1,276 @@
+<app-header-bar titulo="{{ title }}">
+</app-header-bar>
+<ion-content>
+  <div class="margin-min">
+    <form [formGroup]="form" (click)="util.selectedFocus($event)" (ngSubmit)="onSubmit()">
+      <ion-card color="light" class="sys-card">
+        <!-- header item -->
+        <ion-item class="card-header"  color="light" lines="full">
+          <ion-icon slot="start" name="cube-outline"></ion-icon>
+          <ion-text><h5>Servicio</h5></ion-text>
+        </ion-item>
+        <ion-card-content class="card-collapse-on">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-label color="medium" position="stacked">Contrato</ion-label>
+                      <ion-select interface="popover" name="contract" placeholder="Seleccione contrato" [compareWith]="compare" formControlName="contract">
+                        <ion-select-option *ngFor="let item of contracts" [value]="item">
+                          {{item.code}}
+                        </ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-label color="medium" position="stacked">Centro costo</ion-label>
+                      <ion-select interface="popover" name="cost_center" placeholder="Seleccione centro de costo" [compareWith]="compare" formControlName="cost_center">
+                        <ion-select-option *ngFor="let item of cost_centers" [value]="item">
+                          {{item.name}}
+                        </ion-select-option>
+                      </ion-select> 
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+    
+              <ion-grid>
+                <ion-row>
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-label position="floating" color="medium">Fecha salida</ion-label>
+                      <ion-datetime no-padding
+                        formControlName="service_date"
+                        mode="md"
+                        [pickerOptions]="customPickerOptions"
+                        [cancelText]="cancelText"
+                        [doneText]="doneText"
+                        monthShortNames="{{monthShortNames}}"
+                        displayFormat="D MMM YYYY H:mm" 
+                        min="{{year}}" 
+                        max="{{+year+1}}" >
+                      </ion-datetime>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-label position="floating" color="medium">Estimada cierre</ion-label>
+                      <ion-datetime 
+                        formControlName="estimated_closing_date"
+                        mode="md"
+                        [pickerOptions]="customPickerOptions"
+                        [cancelText]="cancelText"
+                        [doneText]="doneText"
+                        monthShortNames="{{monthShortNames}}"
+                        displayFormat="D MMM YYYY H:mm" 
+                        min="{{year}}" 
+                        max="{{+year+1}}">
+                      </ion-datetime>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            <!-- equipments and drivers -->
+              <ion-grid>
+                <ion-row>
+                  <ion-col size-xs="12" size-md="6">
+                    <!-- equipments -->
+                    <app-go-select 
+                    [many]="equipmentMany" 
+                    [reset]="reset"
+                    type="equipments"
+                    [form]="form"
+                    text="equipo"
+                    value="patent"
+                    [defaultData]="defaultData">
+                  </app-go-select>
+                  </ion-col>
+                  <!-- drivers -->
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-grid class="internal-grid">
+                        <ion-row class="top-10 ion-align-items-center">
+                          <ion-col size="4" size-xs="12">
+                            <ion-label (click)="presentSearch('drivers')"  color="medium">
+                              Conductor(es)
+                              <ion-icon alt="Agregar conductor" class="add" name="add-circle"></ion-icon>
+                            </ion-label>
+                          </ion-col>
+                          <ion-col>
+                            <ng-container>
+                              <ion-chip class="chip" *ngFor="let driver of form.value.drivers">
+                              <ion-avatar >
+                                <img src="assets/avatar.svg">
+                              </ion-avatar>
+                              <ion-label>
+                                <span>
+                                  <ng-container *ngIf="driver">
+                                    <ion-chip class="chip-small"  outline="true" *ngIf="driver.driver.user_profile">
+                                      <ion-label>{{driver.driver.user_profile.ni + '-' + driver.driver.user_profile.check_digit}}</ion-label>
+                                    </ion-chip>
+                                    {{ 
+                                      driver.driver.user_profile.user.first_name + ' ' +
+                                      driver.driver.user_profile.user.last_name
+                                    }}
+                                  </ng-container>
+                                </span>
+                              </ion-label>
+                              <ion-icon (click)="removeItem(driver, 'drivers')" class="close" size="small" name="close-circle"></ion-icon>
+                            </ion-chip>
+                            </ng-container>
+                            
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                    </ion-item> 
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            <!-- / equipments -->
+            <!-- origin and destination -->
+              <ion-grid>
+                <ion-row>
+                  <!-- origin -->
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-label (click)="presentSearch('origins')" color="medium" position="fixed">
+                        <span>Origen </span>
+                        <ng-container *ngIf="form.value.origins">
+                          <ion-icon class="add" name="{{ form.value.origins.length > 0 ? 'create' : 'add-circle' }}"></ion-icon>
+                        </ng-container>
+                        <ng-container *ngIf="!form.value.origins">
+                          <ion-icon class="add" name="add-circle"></ion-icon>
+                        </ng-container>
+                      </ion-label>
+                      <ng-container *ngIf="form.value.origins">
+                        <ion-chip class="chip" *ngFor="let it of form.value.origins">                  
+                        <ion-label>
+                          <span *ngIf="it">
+                            {{ 
+                              it.name
+                            }}
+                          </span>
+                        </ion-label>
+                        <ion-icon (click)="removeItem(it, 'origins')" class="close" size="small" name="close-circle"></ion-icon>
+                      </ion-chip>
+                      </ng-container>
+                      
+                      
+                    </ion-item> 
+                  </ion-col>
+                  <!-- destination -->
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-label (click)="presentSearch('destinations')" color="medium" position="fixed">
+                        <span>Destino </span>
+                        <ng-container *ngIf="form.value.destinations">
+                          <ion-icon class="add" name="{{ form.value.destinations.length > 0 ? 'create' : 'add-circle' }}"></ion-icon>
+                        </ng-container>
+                        <ng-container *ngIf="!form.value.destinations">
+                          <ion-icon class="add" name="add-circle"></ion-icon>
+                        </ng-container>
+                        
+                      </ion-label>
+                      <ng-container *ngIf="form.value.destinations">
+                        <ion-chip class="chip" *ngFor="let it of form.value.destinations">                  
+                        <ion-label>
+                          <span *ngIf="it">
+                            {{ 
+                              it.name
+                            }}
+                          </span>
+                        </ion-label>
+                        <ion-icon (click)="removeItem(it, 'destinations')" class="close" size="small" name="close-circle"></ion-icon>
+                      </ion-chip>
+                      </ng-container>
+                      
+                    </ion-item> 
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            <!-- / addess and amount -->
+              <ion-grid>
+                <ion-row>
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-label color="medium" position="floating">Dirección Destino</ion-label>
+                      <ion-input type="text" name="address" formControlName="address"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-label color="medium" position="floating">Monto</ion-label>
+                      <ion-input  type="number" name="amount" formControlName="amount"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            <!-- guide and priority -->
+              <ion-grid>
+                <ion-row>
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-label color="medium" position="floating">Número de Guía</ion-label>
+                      <ion-input type="text" name="numberGuide" formControlName="office_guide"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full">
+                      <ion-label color="medium" position="stacked">Prioridad</ion-label>
+                      <ion-toggle size="small" color="warning" name="priority" formControlName="priority"></ion-toggle>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            <!-- service type, weight and volume -->
+              <ion-grid>
+                <ion-row>
+                  <ion-col size-xs="12" size-md="4">
+                    <ion-item color="light" lines="full">
+                      <ion-label color="medium" position="stacked">Tipo de servicio</ion-label>
+                      <ion-select interface="popover" placeholder="Seleccione tipo de servicio" [compareWith]="compare" name="type" formControlName="type">
+                        <ion-select-option *ngFor="let item of types" [value]="item">
+                          {{item.name}} ({{item.code}})
+                        </ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="4">
+                    <ion-item color="light" lines="full">
+                      <ion-label color="medium" position="floating">Peso (kg)</ion-label>
+                      <ion-input type="number" name="weight" formControlName="weight"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="4">
+                    <ion-item color="light" lines="full">
+                      <ion-label color="medium" position="floating">Volume (m3)</ion-label>
+                      <ion-input type="number" name="volume" formControlName="volume"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            <!-- reference -->
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-item color="light" lines="full">
+                      <ion-label color="medium" position="floating">Referencia</ion-label>
+                      <ion-textarea name="reference" formControlName="reference"></ion-textarea>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+        </ion-card-content>
+        <!-- footer item -->
+        <ion-item lines="none" color="light" >
+          <ion-button [disabled]="!form.valid" type="submit" color="dark" size="large" slot="end" >
+            <ion-icon name="save-outline"></ion-icon>
+            <ion-label class="icon">Guardar Servicio</ion-label>
+          </ion-button>
+        </ion-item>
+      </ion-card>
+    </form>
+  </div>
+  
+</ion-content>

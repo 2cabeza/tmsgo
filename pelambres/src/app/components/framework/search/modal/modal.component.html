@@ -1,0 +1,91 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss(false)">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- content -->
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-searchbar showCancelButton="focus" cancelButtonText="Cancelar" animated placeholder="Buscar" mode="ios"
+      [formControl]="search2">
+    </ion-searchbar>
+    <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen="true">
+
+  <!-- list -->
+  <ion-list class="search-list" mode="md">
+    <ion-item *ngFor="let item of _itemsAutoComplete | async" (click)="dismiss(true, item)" button>
+      <!-- drivers template -->
+      <ng-container *ngIf="action=='drivers'">
+        <ion-avatar slot="start">
+          <img src="assets/avatar.svg">
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ item.user_profile.user.first_name + ' ' + item.user_profile.user.last_name }}</h3>
+          <p>{{ item.user_profile.user.email }}</p>
+          <p>
+            <span>RUT: {{ item.user_profile.ni + '-' + item.user_profile.check_digit }}</span>
+            <span *ngIf="item.user_profile.personal_phone"> TEL: {{ item.user_profile.personal_phone }}</span>
+          </p>
+        </ion-label>
+      </ng-container>
+      <!-- equipments template -->
+      <ng-container *ngIf="action=='equipments'">
+        <ion-avatar slot="start">
+          <img src="assets/truck.svg">
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ item.patent }}</h3>
+          <p>Tipo {{ item.type.name }}</p>
+          <p>
+            <span *ngIf="item.last_service">Última salida: {{ this.utils.getDateFormat(item.last_service.service_date)
+              }}</span>
+          </p>
+        </ion-label>
+      </ng-container>
+
+      <!-- subsidiary ( origin / destination ) template -->
+      <ng-container *ngIf="action=='origins' || action=='destinations' || action=='subsidiary'">
+        <ion-avatar slot="start">
+          <ion-icon size="large" name="navigate-circle-outline"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ item.name }}</h3>
+          <p>Dirección {{ item.address }}</p>
+          <p>
+            <span *ngIf="item.contact">Contacto: {{ item.contact }}</span>
+          </p>
+        </ion-label>
+      </ng-container>
+      <!-- subsidiary ( origin / destination ) template -->
+      <ng-container *ngIf="action=='type' || action=='location'">
+        <ion-avatar slot="start">
+          <ion-icon size="large" name="navigate-circle-outline"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+        </ion-label>
+      </ng-container>
+      <!-- default type -->
+      <ng-container *ngIf="action=='default'">
+        <ion-icon *ngIf="!(icon | safe:'is_assets'); else assets" size="large" slot="start" name="{{ icon ? icon : 'document-outline' }}"></ion-icon>
+        <ng-template #assets>
+          <ion-avatar slot="start">
+            <img src="{{ icon }}">
+          </ion-avatar>
+        </ng-template>
+        <go-render-html [data]="item" [html]="itemAdapter"></go-render-html>
+      </ng-container>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <!-- end list -->
+</ion-content>

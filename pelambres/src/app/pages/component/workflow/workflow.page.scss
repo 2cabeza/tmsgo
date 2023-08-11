@@ -1,0 +1,31 @@
+// ion-item {
+//     --border-top-width: 2px;
+//     --border-end-width: 3px;
+//     --border-bottom-width: 2px;
+//     --border-start-width: 6px;
+    
+//     --inner-border-width: 0;
+    
+//     --border-width: var(--border-top-width) var(--border-end-width) var(--border-bottom-width) var(--border-start-width);
+//     --border-bottom-color: red !important;
+//     border-color: red;
+//     border-bottom-color: red;
+//   }
+  
+//   ion-item:first-child {
+//     --border-top-width: 0;
+//     --border-bottom-color: red !important;
+//     border-color: red;
+//     border-bottom-color: red;
+//   }
+
+//   .item-divider {
+//     color: red;
+//     background-color: red;
+// }
+
+// :host{
+    
+//     --border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(113, 116, 238, 0.13))));
+// }
+

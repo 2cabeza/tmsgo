@@ -1,0 +1,44 @@
+<ion-content>
+  <ion-grid class="container-login"  #myLoginForm>
+    <ion-row>
+      <ion-col class="login" size-lg="6" size-xs="12"> 
+        <!-- Form -->
+        <form [formGroup]="formLogin">
+          <ion-grid class="login-form">
+            <ion-row >
+              <ion-col offset-lg="2.5" size-lg="7">
+                <img src="../../../assets/logo_tms.svg" class="login-logo">
+                <span>
+                  <ion-progress-bar color="warning" *ngIf="loader" type="indeterminate"></ion-progress-bar>
+                </span>
+                <span>
+                  <ion-item color="light" lines="full">
+                    <ion-label color="medium" position="stacked">Usuario</ion-label>
+                    <ion-input type="text" name="username" formControlName="username"></ion-input>
+                  </ion-item>
+                </span>
+                <span>
+                  <ion-item color="light" lines="full">
+                    <ion-label color="medium" position="stacked">Contraseña</ion-label>
+                    <ion-input type="password" name="username" formControlName="password"></ion-input>
+                  </ion-item>
+                </span>
+                <span>
+                  <ion-label color="danger"> {{this.error}}</ion-label>
+                </span>
+                <span>
+                  <ion-button *ngIf="!loader" size="full" shape="round" expand="full" color="warning" (click)="loginUser()">ingresar</ion-button>
+                </span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </ion-col>
+      <!-- end form -->
+      <ion-col class="login-hero" size-lg="6">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

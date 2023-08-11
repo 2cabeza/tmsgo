@@ -1,0 +1,123 @@
+.sys-card{
+    width: 70%;
+    margin: 5rem auto;
+    
+}
+
+.locations{
+    border-bottom: 1px solid #bebebe;
+    cursor: pointer;
+    ion-col{
+        white-space: nowrap;
+    }
+
+    .flag{
+        color: #bebebe;
+    }
+
+    .map{
+        color: #3450cc;
+    }
+
+    &.active{
+        background-color: rgb(220, 246, 255);
+        .flag{
+            color: #3450cc;
+        }
+    }
+
+    &.init{
+        .flag{
+            color: #34cc48;
+            
+        }
+
+        .flag::after{
+            content: 'i';
+            padding: 0 8px 0 6px;
+            color:black;
+        }
+    }
+
+    &:hover{
+        background-color: #e7ebf0;
+    }
+    
+}
+
+.container-grid{
+    width: 100%; 
+    // white-space: nowrap; 
+    // overflow: auto;
+}
+
+// .locations.active{
+//     background-color: lightblue;
+// }
+
+.primary{
+    background-color: #212528;
+}
+
+.secondary{
+    background-color: orangered;
+}
+
+.date{
+    margin-right: 10px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #666666;
+}
+
+ion-card-content{
+    padding: 6px;
+    .pipe{
+        text-align: unset;
+    }
+
+    .line{
+        border-radius: 2px;
+        margin: 8px 0;
+        h5{
+          font-size: 12px;
+          font-weight: 500;
+        }
+    }
+
+    .th{
+        font-weight: 500;
+        background-color: #dee2e7;
+    }
+
+    ion-col{
+        ion-icon{
+            cursor: pointer;
+        }
+    }
+}
+
+
+:host zxing-scanner::ng-deep video {
+    height: 400px;
+    width: 400px;
+    min-height: 50vh;    
+    object-fit: contain;
+}
+:host zxing-scanner::ng-deep {
+    height: 400px;
+    width: 400px;
+    border-style: solid;
+    border-color: #5d78ff;
+} 
+
+
+@media (max-width: 768px){
+
+    .sys-card{
+        width: 90%;
+        margin: 5rem auto;
+        
+    }
+    
+  }

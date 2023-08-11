@@ -1,0 +1,16 @@
+  <!-- (click)="onClickMap('click')" 
+  (dblclick)="onClickMap('dblclick')" 
+  (mouseup)="onClickMap('mouseup')" 
+  (mousedown)="onClickMap('mousedown')" 
+  (mouseover)="onClickMap('mouseover')" 
+  (mouseout)="onClickMap('mouseout')"  -->
+ 
+  <div 
+    [class]="maxHeight ? 'map-max' : 'map-400'"
+    #map 
+    (click)="onClickMap('click')" 
+    (dblclick)="onClickMap('dblclick')" 
+    (mouseup)="onClickMap('mouseup')" 
+    (mousedown)="onClickMap('mousedown')" 
+    id="map">
+  </div>

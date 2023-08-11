@@ -1,0 +1,126 @@
+
+/* ................................................................ nuevo ........ */
+
+/* ------------------------------------------------------------ */
+/* ------------------------  Bitacora  ------------------------ */
+/* ------------------------------------------------------------ */
+
+/* container */
+.container-content{
+    padding: 1px;
+    margin: 0px 0px 0px 0px;
+    height: 100%;
+  }
+  
+  .bitacora-input{
+      width: 100%;
+      height: auto;
+      background: #fff;
+      border-radius: 8px;
+      padding: 10px 10px 15px 10px;
+      margin: 30px 0 0 0;
+    }
+    
+    .bitacora-input > h3{
+      font-size: 16px;
+      margin: 5px 0 10px 0;
+      padding: 0;
+      font-weight: 700;
+    }
+    
+    .bitacora-input > p{
+      font-size: 14px;
+      margin: 0 0 3px 0;
+      padding: 0;
+      font-weight: 500;
+      color: #707070;
+    }
+    
+    .bitacora-input > p span{
+      font-weight: 300;
+    }
+    
+    .bitacora-input p.comment{
+      padding-top: 10px;
+    }
+    
+    .bitacora-input p.comment > span{
+      display: block;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 300 !important;
+    }
+
+    /* slide */
+
+    ion-content{
+      background-color: #fff;
+    }
+    
+    .container-slide{
+      bottom: 1px;
+      right: 1px;
+      left: 1px;
+      top: 110px;
+      position: fixed;
+    }
+
+    .swiper-slide {
+      text-align: left;
+    }
+
+    ion-slides{
+      height: 100%;
+      background-color: #f8f8f8;
+      // overflow: auto;
+
+      .wh{
+        width: 100%;
+        height: 93%;
+        overflow: scroll;
+        background-color: #fff;
+        -webkit-box-shadow:inset 0 -11px 10px #ececec;
+        -moz-box-shadow:inset 0 -11px 10px #ececec;
+        box-shadow:inset 0 -11px 10px #ececec;
+        display: inline-block;
+        align-self: flex-start;
+        // bottom: 0px;
+        // right: 0px;
+        // left: 0px;
+        // top: 0px;
+        // position: fixed;
+      }
+    }
+
+    
+  
+    /* Without setting height the slides will take up the height of the slide's content */
+    // ion-slides{
+    //   height: 90%;
+    //   background-color: pink;
+      // ion-slides {
+      //   height: 90%;
+      //   background-color: #f4f4f4;
+
+      //   // .wh{
+      //   //   width: 100%;
+      //   //   height: auto;
+      //   //   background-color: royalblue;
+      //   // }
+      // }
+    
+      
+    // }
+
+    
+  //   .swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal>.swiper-pagination-bullets {
+  //     bottom: 0px;
+  //     left: 0;
+  //     width: 100%;
+  //     --scroll-bar-background: darkgoldenrod !important;
+  // }
+
+  // --scroll-bar-background{
+  //   background-color: darkgreen !important;
+  // }
+    

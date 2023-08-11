@@ -1,0 +1,31 @@
+<ion-content>
+  <ion-card color="light" class="sys-card">
+    <!-- header item -->
+    <ion-item class="card-header" button detail detail-icon="chevron-down" color="light" lines="full" (click)="util.toogleCard($event)">
+      <label>Tiempo aprox: </label>
+      <ion-chip size="small" color="primary">
+        <ion-icon name="hourglass-outline"></ion-icon>
+        <ion-label>{{approximate_time}}</ion-label>
+      </ion-chip>
+      <label>Distancia:</label> 
+      <ion-chip size="small" color="primary">
+        <ion-icon name="code-working-outline"></ion-icon>
+        <ion-label>{{approximate_distance}}</ion-label>
+      </ion-chip>
+    </ion-item>
+    <ion-card-content class="card-collapse-off">
+      <div>Detalle</div>
+    </ion-card-content>
+    <!-- footer item -->
+  </ion-card>
+  <div 
+    #map 
+    (click)="onClickMap('click')" 
+    (dblclick)="onClickMap('dblclick')" 
+    (mouseup)="onClickMap('mouseup')" 
+    (mousedown)="onClickMap('mousedown')" 
+    (mouseover)="onClickMap('mouseover')" 
+    (mouseout)="onClickMap('mouseout')" 
+    id="map">
+  </div>
+</ion-content>

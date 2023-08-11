@@ -1,0 +1,297 @@
+<app-header-bar titulo="{{ title }}" [back]="true" href="/component">
+  <!-- [href]="/component" -->
+</app-header-bar>
+<ion-content>
+  <ion-item *ngIf="warning" color="danger">
+    <ion-label class="ion-text-wrap">
+      {{warning}}
+    </ion-label>
+  </ion-item>
+  <div class="margin-min">
+    <form [formGroup]="form" (click)="util.selectedFocus($event)">
+      <ion-card color="light" class="sys-card">
+        <!-- header item -->
+        <ion-item class="card-header" color="light" lines="full">
+          <ion-text>
+            <h5 *ngIf="component">{{ (component.id) ? 'Edición Componente Nº ' + component.id : 'Nuevo Inventario' }} </h5>
+          </ion-text>
+          <ion-note slot="end" *ngIf="component.modified">
+            Última modificación {{ util.getHumansDate(component.modified) }}
+          </ion-note>
+        </ion-item>
+        <ion-card-content class="card-collapse-on">
+          <!-- main form -->
+          <ion-card color="light" class="sys-card">
+            <div class="line"></div>
+            <ion-item lines="none" class="card-header" button detail detail-icon="chevron-down"
+              (click)="util.toogleCard($event)">
+              <ion-icon slot="start" name="cube-outline"></ion-icon>
+              <ion-text>
+                <h5>Información General </h5>
+              </ion-text>
+              <!--class="card-collapse-{{collapse}}" <ion-text (click)="wea()">{{collapse}}</ion-text> -->
+            </ion-item>
+            <ion-card-content [ngClass]="(collapse==='on') ? 'card-collapse-on' : 'card-collapse-off'">
+              <!-- <div *ngIf="!formEdit" class="no-allowed"></div> -->
+              <ion-grid>
+                <ion-row>
+                  <ion-col size-xs="12" size-md="4">
+                    <go-search [filter]="filterPath" [exclude]="excludePath" [disabled]="!formEdit" [many]="many"
+                      [reset]="reset" type="subsidiary" text="Sucursal" value="name" [selectedItems]="subsidiaries_path"
+                      (select)="onSelectPath($event)" [defaultData]="defaultData" [session]="sessionSubsidiary">
+                    </go-search>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="4">
+                    <go-search #subsidiary [filter]="filterSubsidiary" [many]="many" [reset]="reset" type="subsidiary"
+                      [form]="form" text="Patio" value="name" (select)="onSelectSubsidiary($event)"
+                      [parentObject]="component" [defaultData]="defaultData"
+                      [disabled]="disabledSubsidiary2 || !formEdit" [session]="sessionSubsidiary2">
+                    </go-search>
+                  </ion-col>
+                  <!-- locations -->
+                  <ion-col size-xs="12" size-md="4">
+                    <go-search #location [filter]="filterLocation" [many]="many" [reset]="reset" type="location"
+                      [form]="form" text="Ubicación" value="name" [parentObject]="component"
+                      (select)="onSelectLocation($event)" [defaultData]="defaultData"
+                      [disabled]="disabledLocation || !formEdit" [session]="sessionLocation">
+                    </go-search>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <!-- types -->
+                  <ion-col size-xs="12" size-md="3">
+                    <go-search [disabled]="!formEdit" #type [filter]="filterType" [many]="many" [reset]="reset"
+                      type="type" [form]="form" text="Tipo" value="name" [parentObject]="component"
+                      [defaultData]="defaultData" [session]="sessionForm">
+                    </go-search>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="3">
+                    <ion-item color="light" lines="full" [disabled]="!formEdit">
+                      <ion-label color="medium" position="floating">Nº Ticket</ion-label>
+                      <ion-input type="text" name="ticket" formControlName="ticket"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="3">
+                    <ion-item color="light" lines="full" [disabled]="!formEdit">
+                      <ion-label color="medium" position="floating">Código SAP <i>(Ej: s100, s200)</i></ion-label>
+                      <ion-input type="text" name="code_1" formControlName="code_1"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="3">
+                    <ion-item color="light" lines="full" [disabled]="!formEdit">
+                      <ion-label color="medium" position="floating">N/P</ion-label>
+                      <ion-input type="text" name="code_2" formControlName="code_2"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size-xs="12" size-md="2.4">
+                    <ion-item color="light" lines="full" [disabled]="!formEdit">
+                      <ion-label color="medium" position="floating" class="required-field">Cantidad</ion-label>
+                      <ion-input type="number" min="0.0" name="quantity" formControlName="quantity"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="2.4">
+                    <ion-item color="light" lines="full" [disabled]="!formEdit">
+                      <ion-label color="medium" position="floating">Peso <i>(kg)</i></ion-label>
+                      <ion-input type="number" min="0.0" step="0.0" name="weight" formControlName="weight"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="2.4" [disabled]="!formEdit">
+                    <ion-item color="light" lines="full" [disabled]="!formEdit">
+                      <ion-label color="medium" position="floating">Largo <i>(mt)</i></ion-label>
+                      <ion-input type="number" min="0.0" name="long" formControlName="long"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="2.4">
+                    <ion-item color="light" lines="full" [disabled]="!formEdit">
+                      <ion-label color="medium" position="floating">Alto <i>(mt)</i></ion-label>
+                      <ion-input type="number" min="0.0" name="height" formControlName="height"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="2.4">
+                    <ion-item color="light" lines="full" [disabled]="!formEdit">
+                      <ion-label color="medium" position="floating">Ancho <i>(mt)</i></ion-label>
+                      <ion-input type="number" min="0.0" name="width" formControlName="width"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <!-- description -->
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full" [disabled]="!formEdit">
+                      <ion-label color="medium" position="floating">Descripción</ion-label>
+                      <ion-textarea name="description" formControlName="description"></ion-textarea>
+                    </ion-item>
+                  </ion-col>
+                  <!-- observation -->
+                  <ion-col size-xs="12" size-md="6">
+                    <ion-item color="light" lines="full" [disabled]="!formEdit">
+                      <ion-label color="medium" position="floating">Observación</ion-label>
+                      <ion-textarea name="observation" formControlName="observation"></ion-textarea>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size=12>
+                    <!-- Maps -->
+                    <ion-card color="light" class="advanced sys-card">
+                      <!-- header item -->
+                      <ion-item button detail detail-icon="chevron-down" color="light" lines="full"
+                        (click)="util.toogleCard($event)">
+                        <ion-icon color="medium" slot="start" name="map-outline"></ion-icon>
+                        <ion-text>Mapa</ion-text>
+                      </ion-item>
+                      <!-- content maps -->
+                      <ion-card-content class="card-collapse-100-off">
+                        
+                        <ion-label [disabled]="!formEdit">
+                          <go-map #map [form]="form" [clearMap]="clearMap" (selectEvent)="onSelectLocation($event)"
+                            (updateEvent)="updateLocation($event)" [latitude]="latitude" [longitude]="longitude"
+                            [session]="sessionForm">
+                          </go-map>
+                        </ion-label>
+                      </ion-card-content>
+                      <ion-item color="light" lines="none">
+                        <ion-label color="medium">*Para mayor precisión ubique el punto en el mapa de su ubicación inicial.</ion-label>
+                        <ion-icon name="flash-outline" slot="end" (click)="resetMap()"></ion-icon>
+                      </ion-item>
+                      <ion-item color="light" lines="full">
+                        <ion-label>Coordenadas: <i>{{ coordinates }}</i></ion-label>
+                      </ion-item>
+                    </ion-card>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <!-- upload files -->
+                  <ion-col size="12">
+                    <ion-item color="light" lines="full">
+                      <div>
+                        <span>
+                          <span *ngFor="let file of files" size-xs="12" size-md="2">
+                            <ion-chip color="medium">
+                              <ion-icon name="attach"></ion-icon>
+                              <ion-label color="dark" (click)="view(file.value)">{{ file.name }}</ion-label>
+                              <ion-icon *ngIf="formEdit" (click)="removeFile(file)" class="close" size="small"
+                                name="close-circle"></ion-icon>
+                            </ion-chip>
+                          </span>
+                        </span>
+                        <span>
+                          <go-upload [disabled]="!formEdit" [many]="manyFile" (upload)="onUploadEvent($event)"
+                            (loading)="onUploadLoading($event)" [session]="sessionForm">
+                          </go-upload>
+                        </span>
+                      </div>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-xs="12" size-md="6" >
+                    <ion-item color="light" lines="full" [disabled]="!formEdit" *ngIf="false">
+                       <ion-label color="dark" class="warn-text">
+                         ¿Es un nuevo contrato??
+                         <br><i>Seleccione una opción.</i>
+                       </ion-label>
+                       <ion-toggle size="small" color="warning" name="new_contract" formControlName="new_contract"></ion-toggle>
+                     </ion-item>
+                 </ion-col>
+                  <ion-col size-xs="12" size-md="6">
+                     <ion-item color="light" lines="full" [disabled]="!formEdit">
+                        <ion-label color="dark" class="warn-text">
+                          ¿Desea procesar el formulario para que otros perfiles puedan validar?
+                          <br><i>Si activa esta opción, el componente no podrá volver a ser editado.</i>
+                        </ion-label>
+
+                        <ion-toggle size="small" color="warning" name="processed" formControlName="processed"></ion-toggle>
+                      </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+            <ion-item class="btn-responsive right" lines="none" color="light">
+              <ion-button *ngIf="formEdit" type="button" (click)="resetForm(false)" color="light" size-="small"
+                slot="start">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+              <ion-icon *ngIf="!formEdit" slot="end" color="medium" name="lock-closed"></ion-icon>
+            </ion-item>
+          </ion-card>
+          <!-- locations qrs -->
+          <ion-card color="light" class="sys-card">
+            <!-- header item -->
+            <!-- Color barra dentro de Line => [ngStyle]="item.process ? getColor(item.process) : ''" -->
+            <div class="line"></div>
+            <ion-item lines="none" class="card-header" button detail detail-icon="chevron-down"
+              (click)="util.toogleCard($event)">
+              <ion-icon slot="start" name="scan"></ion-icon>
+              <ion-text>
+                <h5>Código QR</h5>
+              </ion-text>
+            </ion-item>
+
+            <ion-card-content [ngClass]="(collapse_qr==='on') ? 'card-collapse-on' : 'card-collapse-off'">
+              <!-- conditions no-allowed -->
+              <div *ngIf="!formScanning" class="no-allowed"></div>
+              <!-- /conditions no-allowed -->
+              <!-- content -->
+              <ion-grid>
+                <ion-row>
+                  <ion-col offsetXs="0" offsetMd="3" size-md="6" size-xs="12">
+                    <ion-item color="light" lines="full">
+                      <ion-icon name="qr-code-outline" size="large" slot="start"></ion-icon>
+                      <ion-label  color="medium" position="floating">QR Code</ion-label>
+                      <ion-input type="text" name="qr_code" class="qr-code" formControlName="qr_code"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <!-- /content -->
+            </ion-card-content>
+            <ion-item class="btn-responsive right" lines="none" color="light">
+              <ion-button *ngIf="formScanning" type="button" (click)="resetQr()" color="light" size-="small"
+                slot="start">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+              <ion-icon *ngIf="!formScanning" slot="end" color="medium" name="lock-closed"></ion-icon>
+            </ion-item>
+          </ion-card>
+          <!-- workflows -->
+          <div *ngIf="component">
+            <ng-container *ngIf="component.workflow && component?.processed">
+              <div *ngFor="let work of component.workflow; let i = index">
+                <!-- <div>{{ i }}</div>
+                <div>{{ i >= 1 ? component.workflow[i-1].processed : true }}</div> -->
+                <app-workflow (statusForm)="workflowEvent($event)" [component]="component" [item]="work"
+                  [session]="sessionWorkflows" [previous_status]="i >= 1 ? component.workflow[i-1].processed : true">
+                </app-workflow>
+              </div>
+            </ng-container>
+          </div>
+          <ion-label slot="end" class="required-field required-text"><i>Campos requeridos</i></ion-label>
+        </ion-card-content>
+        <!-- footer item -->
+        <ion-item class="btn-responsive right" lines="none" color="light" *ngIf="formEdit || formScanning">
+          <ion-buttons slot="start">
+            <ion-back-button defaultHref="/component" text="Ir al Listado de componentes"></ion-back-button>
+          </ion-buttons>
+
+          <ion-button [disabled]="!form.valid || isLoading" type="button" (click)="onSubmit('new')" class="new"
+            color="dark" size-="small" slot="end">
+            <ion-icon name="add-circle-outline"></ion-icon>
+            <ion-label class="icon">Grabar y añadir otro</ion-label>
+          </ion-button>
+          <ion-button [disabled]="!form.valid || isLoading" type="button" class="btn_self" (click)="onSubmit('self')"
+            color="dark" size-="small" slot="end">
+            <ion-icon name="refresh-circle-outline"></ion-icon>
+            <ion-label class="icon">Grabar y continuar editando</ion-label>
+          </ion-button>
+          <ion-button [disabled]="!form.valid || isLoading" type="button" class="btn_out" (click)="onSubmit('out')"
+            color="dark" size-="small" slot="end">
+            <ion-icon name="save-outline"></ion-icon>
+            <ion-label class="icon">Grabar</ion-label>
+          </ion-button>
+        </ion-item>
+      </ion-card>
+    </form>
+  </div>
+  <div [innerHTML]="btnScan | safe: 'html'"></div>
+</ion-content>

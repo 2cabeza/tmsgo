@@ -1,0 +1,37 @@
+<ion-item color="light" lines="none" [disabled]="disabled">
+
+  <ion-label (click)="presentSearch()" color="medium">
+    {{ util.setCapitalize(text) }}
+    <ion-icon class="add" name="add-circle"></ion-icon>
+  </ion-label>
+
+  <ng-container *ngIf="!many">
+    <ion-chip class="chip" *ngFor="let item of customObjectList">
+      <ng-container *ngIf="showChipIcon==true">
+        <!-- <div>hola2 {{showChipIcon}}</div> -->
+        <ion-icon size="small" name="{{ icon }}"></ion-icon>
+      </ng-container>
+      <ion-label>
+        <span>
+          {{ {'value': value, 'item': item} | safe:'value' }}
+        </span>
+      </ion-label>
+      <ion-icon (click)="removeItem(item)" class="close" size="small" name="close-circle"></ion-icon>
+    </ion-chip>
+  </ng-container>
+</ion-item>
+
+<ion-item *ngIf="many" color="light" lines="full" [disabled]="disabled">
+  <div>
+    <ion-chip class="chip" *ngFor="let item of customObjectList">
+      <ng-container *ngIf="showChipIcon==true">
+        <!-- <div>hola{{showChipIcon}}</div> -->
+        <ion-icon size="small" name="{{ icon }}"></ion-icon>
+      </ng-container>
+      <ion-label>
+        {{ {'value': value, 'item': item} | safe:'value' }}
+      </ion-label>
+      <ion-icon (click)="removeItem(item)" class="close" size="small" name="close-circle"></ion-icon>
+    </ion-chip>
+  </div>
+</ion-item>

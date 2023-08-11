@@ -1,0 +1,59 @@
+<ion-item>
+  <ion-button slot="start">
+    Start
+  </ion-button>
+  <ion-label>Button Start/End</ion-label>
+  <ion-button slot="end">
+    End
+  </ion-button>
+</ion-item>
+
+<ion-item>
+  <ion-button slot="start">
+    Start Icon
+    <ion-icon name="home" slot="end"></ion-icon>
+  </ion-button>
+  <ion-label>Buttons with Icons</ion-label>
+  <ion-button slot="end">
+    <ion-icon name="star" slot="end"></ion-icon>
+    End Icon
+  </ion-button>
+</ion-item>
+
+<ion-item>
+  <ion-button slot="start">
+    <ion-icon slot="icon-only" name="navigate"></ion-icon>
+  </ion-button>
+  <ion-label>Icon only Buttons</ion-label>
+  <ion-button slot="end">
+    <ion-icon slot="icon-only" name="star"></ion-icon>
+  </ion-button>
+</ion-item>
+
+<!-- EXAMPLES CARDS -->
+<ion-card color="light" class="sys-card">
+  <!-- header item -->
+  <!-- Color barra dentro de Line => [ngStyle]="item.process ? getColor(item.process) : ''" -->
+  <div class="line" ></div>
+  <!-- event onclick (click)="util.toogleCard($event)"  -->
+  <ion-item lines="none" class="card-header" button detail detail-icon="chevron-down" >
+    <ion-icon slot="start" name="git-network-outline"></ion-icon>
+    <ion-text><h5>Cabecera</h5></ion-text>
+  </ion-item>
+  
+  <ion-card-content class="card-collapse-on">
+    <!-- conditions no-allowed -->
+    <div class="no-allowed"></div>
+    <!-- /conditions no-allowed -->
+    <!-- content -->
+
+    <!-- /content -->
+  </ion-card-content>
+  <!-- footer item -->
+  <ion-item class="btn-responsive right" lines="none" color="light">
+    <ion-button type="button" color="light" size-="small"  slot="start">
+      <ion-icon name="trash-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <!-- /footer item -->
+</ion-card>

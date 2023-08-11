@@ -1,0 +1,22 @@
+div.main{
+    width: 100%;
+    display: flex;
+	justify-content: center;
+    align-items: center;
+    
+   
+}
+
+ion-chip{
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px){
+
+    /* container */
+    ion-grid.main{
+        width: 90%;
+    }
+    
+  }

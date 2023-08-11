@@ -1,0 +1,104 @@
+<app-header-bar titulo="Dashboard">
+</app-header-bar>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-lg="3" size-xs="12">
+          <ion-item color="light">
+            <ion-label position="floating" color="medium">Fecha desde</ion-label>
+            <ion-datetime no-padding
+              formControlName="start_date"
+              mode="md"
+              [pickerOptions]="customPickerOptions"
+              [cancelText]="cancelText"
+              [doneText]="doneText"
+              monthShortNames="{{monthShortNames}}"
+              displayFormat="D MMM YYYY" 
+              min="{{year}}" 
+              max="{{+year+1}}" >
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col size-lg="3" size-xs="12">
+          <ion-item color="light">
+            <ion-label position="floating" color="medium">Fecha hasta</ion-label>
+            <ion-datetime 
+              formControlName="end_date"
+              mode="md"
+              [pickerOptions]="customPickerOptions"
+              [cancelText]="cancelText"
+              [doneText]="doneText"
+              monthShortNames="{{monthShortNames}}"
+              displayFormat="D MMM YYYY" 
+              min="{{year}}" 
+              max="{{+year+1}}">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-lg="3" size-xs="12">
+          <ion-button [attr.disabled]="isLoading" size="small" expand="full"  shape="round" color="dark" (click)="this.refresh()">Refrescar</ion-button> 
+      </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="4" size-xs="12">
+        <!-- aqui van los graficos -->
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <!-- <ejs-gantt id="GanttSample" 
+          [dataSource]="data" 
+          height= "450px"
+          width="800px"
+          [taskFields]= "taskfield">
+        </ejs-gantt> -->
+        <!-- <p>
+          <aks-tasks
+          [settings]="settings1"
+          [data]="data"
+          ></aks-tasks>
+        </p> -->
+        <p>
+          <aks-tasks
+          [settings]="settings2"
+          [data]="data"
+          ></aks-tasks>
+        </p>
+        <!-- <p>
+          <aks-tasks
+          [settings]="settings2"
+          [data]="data2"
+          ></aks-tasks>
+        </p> -->
+        <p>
+          <!-- f1 {{settings2.startDate}} -->
+        </p>
+      
+      </ion-col>
+      <ion-col>
+        <div *ngIf="isLoading">
+          <div class="ion-padding custom-skeleton">
+            <ion-skeleton-text animated class="skeleton-list"></ion-skeleton-text>
+            <ion-skeleton-text animated class="skeleton-list"></ion-skeleton-text>
+            <ion-skeleton-text animated class="skeleton-list"></ion-skeleton-text>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
+  <!-- <c-gantt #gantt [form]="form">
+  </c-gantt> -->
+
+  
+ 
+
+</ion-content>

@@ -1,0 +1,13 @@
+<!-- <p>QR STATUS: {{_message}}</p> -->
+<ion-item lines="full">
+    <ion-icon name="qr-code-outline" size="large" color="dark" slot="start" (click)="scanner()"></ion-icon>
+    <ion-label color="medium" position="floating">QR Code</ion-label>
+    <ion-input 
+    type="text" 
+    name="qr_code" 
+    [formControl]="qr_code" 
+    (keyup.enter)="scanner()" 
+    mode="ios" 
+    enterkeyhint="enter">
+  </ion-input>
+</ion-item>

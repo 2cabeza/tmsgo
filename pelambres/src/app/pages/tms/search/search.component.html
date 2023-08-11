@@ -1,0 +1,57 @@
+<form [formGroup]="form">
+  <ion-card color="light" class="advanced sys-card">
+    <!-- header item -->
+    <ion-item button detail detail-icon="chevron-down" color="light" lines="full" (click)="util.toogleCard($event)">
+      <ion-icon color="medium" slot="start" name="options"></ion-icon>
+      <ion-text>Avanzado</ion-text>
+    </ion-item>
+    <!-- content item -->
+    <ion-card-content class="card-collapse-off">
+      <ion-grid>
+        <ion-row>
+          <!-- filter -->
+          <ion-col size-md="5" size-xs="12">
+
+            <ion-item class="title" lines="none">
+              <ion-icon color="medium" slot="start" name="filter"></ion-icon>
+              <ion-label>Filtros</ion-label>
+            </ion-item>
+
+            <ion-item color="light" lines="none">
+              <ion-label position="fixed" color="medium">Fecha desde</ion-label>
+              <ion-icon name="calendar" color="medium" slot="end"></ion-icon>
+              <ion-datetime no-padding formControlName="start_date" mode="md" [pickerOptions]="customPickerOptions"
+                [cancelText]="cancelText" [doneText]="doneText" monthShortNames="{{monthShortNames}}"
+                displayFormat="D MMM YYYY" min="{{year}}" max="{{+year+1}}">
+              </ion-datetime>
+            </ion-item>
+            <ion-item color="light" lines="none">
+              <ion-label position="fixed" color="medium">Fecha hasta</ion-label>
+              <ion-icon name="calendar" color="medium" slot="end"></ion-icon>
+              <ion-datetime no-padding formControlName="end_date" mode="md" [pickerOptions]="customPickerOptions"
+                [cancelText]="cancelText" [doneText]="doneText" monthShortNames="{{monthShortNames}}"
+                displayFormat="D MMM YYYY" min="{{year}}" max="{{+year+1}}">
+              </ion-datetime>
+            </ion-item>
+          </ion-col>
+          <!-- order -->
+          <ion-col offset-md="1" size-md="5" size-xs="12">
+            <ion-item class="title" lines="none">
+              <ion-icon color="medium" slot="start" name="list"></ion-icon>
+              <ion-label>Orden</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-item lines="none" color="light">
+        <ion-button color="light" size="small" slot="end" (click)="this.initForm()">
+          <span>Limpiar</span>
+        </ion-button>
+        <ion-button size="small" color="primary" slot="end" (click)="submit()">
+          <ion-icon name="funnel-outline"></ion-icon>
+          <ion-label>Aplicar</ion-label>
+        </ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</form>

@@ -1,0 +1,68 @@
+<ion-app style="background: none transparent;">
+  <ion-split-pane contentId="main-content">
+    <!-- <span class="user">
+    @{{username}}
+    </span> -->
+    <ion-menu contentId="main-content" type="overlay" *ngIf="isAuth">
+      <ion-content color="primary">
+
+        <div class="menu-wrapper">
+          <!-- Organization -->
+          <ion-item class="org" mat-button [matMenuTriggerFor]="menu" lines="none" color="primary">
+            <ion-label>{{ organization?.name }}</ion-label>
+            <ion-icon name="caret-down-outline"></ion-icon>
+          </ion-item>
+          <!-- Logo -->
+          <div>
+            <img class="logo-menu" src="../assets/logo_tms.svg">
+          </div>
+          <div class="avatar">
+
+            <ion-chip>
+              <ion-avatar *ngIf="userInfo">
+                <img *ngIf="userInfo.image != ''" src="{{ userInfo.image | safe: 'storage'}}"
+                  onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjYzVkYmZmIiBkPSJNMCAwaDUxMnY1MTJIMHoiLz48cGF0aCBkPSJNMjU2IDMwNGM2MS42IDAgMTEyLTUwLjQgMTEyLTExMlMzMTcuNiA4MCAyNTYgODBzLTExMiA1MC40LTExMiAxMTIgNTAuNCAxMTIgMTEyIDExMnptMCA0MGMtNzQuMiAwLTIyNCAzNy44LTIyNCAxMTJ2NTZoNDQ4di01NmMwLTc0LjItMTQ5LjgtMTEyLTIyNC0xMTJ6IiBmaWxsPSIjODJhZWZmIi8+PC9zdmc+';" />
+                <img *ngIf="userInfo.image == ''"
+                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjYzVkYmZmIiBkPSJNMCAwaDUxMnY1MTJIMHoiLz48cGF0aCBkPSJNMjU2IDMwNGM2MS42IDAgMTEyLTUwLjQgMTEyLTExMlMzMTcuNiA4MCAyNTYgODBzLTExMiA1MC40LTExMiAxMTIgNTAuNCAxMTIgMTEyIDExMnptMCA0MGMtNzQuMiAwLTIyNCAzNy44LTIyNCAxMTJ2NTZoNDQ4di01NmMwLTc0LjItMTQ5LjgtMTEyLTIyNC0xMTJ6IiBmaWxsPSIjODJhZWZmIi8+PC9zdmc+" />
+              </ion-avatar>
+              <ion-label *ngIf="userInfo">{{userInfo.email}}</ion-label>
+            </ion-chip>
+
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>
+                <ion-icon name="business-outline"></ion-icon>
+                <ion-label>{{ organization?.name }}</ion-label>
+              </button>
+            </mat-menu>
+            <div class="providers">
+              <ion-chip *ngIf="provider" class="chip-small tag" [ngStyle]="{'background-color': provider?.color}">
+                <ion-label> {{ provider?.name }} </ion-label>
+              </ion-chip>
+            </div>
+
+          </div>
+          <!-- <span>
+            <ion-label *ngIf="userInfo"></ion-label>
+          </span> -->
+          <ng-container *ngIf="menuOptions">
+            <ion-list lines="none">
+              <ng-container *ngFor="let item of menuOptions">
+                <ion-item-divider lines="none" color="trasparent" *ngIf="item.action_type.code=='divider'">
+                  <ion-label>
+                    {{item.title}}
+                  </ion-label>
+                </ion-item-divider>
+                <ion-item button detail lines="none" color="primary" (click)="toggleMenu()"
+                  routerLink="{{item.action_value | safe: 'new'}}" *ngIf="item.action_type.code=='internal-path'">
+                  <ion-icon name="{{item.custom_style ? item.custom_style : 'shapes-outline'}}"></ion-icon>
+                  <ion-label>{{item.title}}</ion-label>
+                </ion-item>
+              </ng-container>
+            </ion-list>
+          </ng-container>
+        </div>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

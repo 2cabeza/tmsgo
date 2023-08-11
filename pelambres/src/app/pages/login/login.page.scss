@@ -1,0 +1,45 @@
+
+.container-login{
+  margin: 0;
+  padding: 0;
+}
+
+.login{
+  height: 100vh;
+  background: #25242C;
+}
+  
+.login-hero{
+  background: url(../../../assets/login-hero.jpg) no-repeat;
+  background-size: cover;
+}
+  
+  .login-form{
+    margin-top: 30%;
+    margin-bottom: 15%;
+    // height: auto;
+    // position: absolute;
+    // top: 50%;
+    // left: 15%;
+    // margin-top: -110px;
+  }
+  
+  .login-logo{
+    // position: absolute;
+    display: block;
+    width: 65%;
+    margin: auto;
+  }
+  
+  .login-form ion-label{
+    padding-bottom: 15px;
+  }
+
+  .login-form span{
+    padding: 12px;
+  }
+
+
+
+
+  

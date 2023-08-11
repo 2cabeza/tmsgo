@@ -1,0 +1,64 @@
+<ion-header>              
+  <ion-toolbar>      
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-grid class="container-content">
+  <!-- service title item -->
+  <ion-row class="ion-align-items-start">
+    <ion-col>
+      <ion-segment mode="ios" value="{{tab_active}}" (ionChange)="changeTabs($event)" color="dark">
+        <ion-segment-button [attr.disabled]="start_tab_disabled" value="details">
+          <ion-label color="dark">DETALLE</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="costs">
+          <ion-label color="dark">RENDICIONES</ion-label>
+        </ion-segment-button>
+        <ion-segment-button [attr.disabled]="end_tab_disabled" value="route">
+          <ion-label color="dark">RUTA</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-col>
+  </ion-row> 
+  <ion-content>
+    <ion-slides pager="true" [options]="slideOpts" (ionSlideTouchStart)="ionSlideTouchStart()" (ionSlideDidChange)="changeSlide($event)" #slider>
+      <ion-slide value="details">
+          <app-view-detail class="wh" [item]="item"></app-view-detail>
+      </ion-slide>
+
+      <ion-slide value="cost">
+        <app-view-costs class="wh" [item]="item" [slider]="slider"></app-view-costs>
+      </ion-slide>
+
+      <ion-slide value="route">
+        <app-view-route class="wh" [item]="item" [slider]="slider"></app-view-route>
+      </ion-slide>
+    </ion-slides>
+  </ion-content>
+
+  <!-- slide -->
+  <!-- <ion-row class="container-slide">
+    <ion-col>
+      <ion-content>
+        <ion-slides pager="true" [options]="slideOpts" (ionSlideTouchStart)="ionSlideTouchStart()" (ionSlideDidChange)="changeSlide($event)" #slider>
+          <ion-slide value="details">
+              <app-view-detail class="wh" [item]="item"></app-view-detail>
+          </ion-slide>
+  
+          <ion-slide value="cost">
+            <app-view-costs class="wh" [item]="item" [slider]="slider"></app-view-costs>
+          </ion-slide>
+  
+          <ion-slide value="route">
+            <app-view-route class="wh" [item]="item"></app-view-route>
+          </ion-slide>
+        </ion-slides>
+      </ion-content>
+      
+    </ion-col>
+  </ion-row> -->
+</ion-grid>

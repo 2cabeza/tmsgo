@@ -1,0 +1,28 @@
+#map {
+    // width: 100%;
+    height: calc(100% - 49px);
+}
+
+ion-item{
+    // height: 49px;
+}
+ion-chip{
+    ion-label{
+        font-weight: 500;
+    }
+}
+
+
+ion-card{
+    position: relative;
+    top: 0;
+    right: -1px;
+    left: -1px;
+    z-index: 9;
+    margin: 0;
+    border-radius: none;
+    box-shadow: none;
+    padding: 0;
+
+}
+

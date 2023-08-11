@@ -1,0 +1,20 @@
+<ion-item color="light" lines="full">
+  <div >
+    <span>
+      <span *ngFor="let file of files" >
+        <ion-chip color="medium" >
+          <ion-icon name="attach"></ion-icon>
+          <ion-label color="dark" (click)="view(file.value)">{{ file.name }}</ion-label>
+          <ion-icon (click)="removeFile(file)" class="close" size="small" name="close-circle"></ion-icon>
+        </ion-chip>
+      </span>
+    </span>
+    <span  >
+      <go-upload
+        id="wf"
+        (upload)="onUpload($event)"
+        (loading)="onUploadLoading($event)">
+      </go-upload>
+    </span>
+  </div>
+</ion-item>

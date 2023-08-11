@@ -1,0 +1,136 @@
+<app-header-bar titulo="Componentes" [href]>
+</app-header-bar>
+<ion-content>
+  <ion-grid color="light">
+    <!-- search form -->
+    <ion-row>
+      <ion-col size="12">
+        <form [formGroup]="form">
+          <!-- search -->
+          <ion-item class="search" lines="none">
+            <ion-searchbar formControlName="search" (keyup.enter)="getData()" mode="ios" enterkeyhint="enter"
+              placeholder="Buscar por Id, Código SAP, N/P, Descripción, Sucursal, Patio, ubicación, QR, Tipo">
+            </ion-searchbar>
+            <ion-button size="large" (click)="getData()">Buscar</ion-button>
+          </ion-item>
+          <!-- advanced -->
+          <ion-card color="light" class="advanced sys-card">
+            <!-- header item -->
+            <ion-item button detail detail-icon="chevron-down" color="light" lines="full"
+              (click)="util.toogleCard($event)">
+              <ion-icon color="medium" slot="start" name="options"></ion-icon>
+              <ion-text>Avanzado</ion-text>
+            </ion-item>
+            <!-- content item -->
+            <ion-card-content class="card-collapse-off">
+              <ion-grid>
+                <ion-row>
+                  <!-- filter -->
+                  <ion-col size-md="5" size-xs="12">
+                    <ion-item class="title" lines="none">
+                      <ion-icon color="medium" slot="start" name="filter"></ion-icon>
+                      <ion-label>Filtros</ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none">
+                      <ion-label position="fixed" color="medium">Fecha desde</ion-label>
+                      <ion-icon name="calendar" color="medium" slot="end"></ion-icon>
+                      <ion-datetime no-padding formControlName="start_date" mode="md"
+                        [pickerOptions]="customPickerOptions" [cancelText]="cancelText" [doneText]="doneText"
+                        monthShortNames="{{util.monthShortNames}}" displayFormat="D MMM YYYY" min="{{year-1}}"
+                        max="{{+year+1}}">
+                      </ion-datetime>
+                    </ion-item>
+                    <ion-item color="light" lines="none">
+                      <ion-label position="fixed" color="medium">Fecha hasta</ion-label>
+                      <ion-icon name="calendar" color="medium" slot="end"></ion-icon>
+                      <ion-datetime no-padding formControlName="end_date" mode="md"
+                        [pickerOptions]="customPickerOptions" [cancelText]="cancelText" [doneText]="doneText"
+                        monthShortNames="{{util.monthShortNames}}" displayFormat="D MMM YYYY" min="{{year-1}}"
+                        max="{{+year+1}}">
+                      </ion-datetime>
+                    </ion-item>
+                  </ion-col>
+                  <!-- order -->
+                  <ion-col offset-md="1" size-md="5" size-xs="12">
+  
+                    <go-search [filter]="filterPath" [many]="true" type="subsidiary" text="Sucursal" value="name"
+                      (select)="onSelectPath($event)">
+                    </go-search>
+                    <ion-item color="light" lines="full" *ngIf="false">
+                      <ion-label color="dark" class="warn-text">
+                        ¿Nuevo contrato??
+                      </ion-label>
+                      <ion-toggle size="small" color="warning" name="new_contract" formControlName="new_contract"></ion-toggle>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <ion-item lines="none" color="light">
+                <ion-button color="light" size="small" slot="end" (click)="this.initForm()">
+                  <span>Limpiar</span>
+                </ion-button>
+                <ion-button size="small" color="primary" slot="end" (click)="this.getData()">
+                  <ion-icon name="funnel-outline"></ion-icon>
+                  <ion-label>Aplicar</ion-label>
+                </ion-button>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </form>
+      </ion-col>
+    </ion-row>
+    <div class="container-dt">
+      <ion-item color="light" lines="none">
+        <ion-icon color="medium" slot="start" name="settings-outline"></ion-icon>
+        <ion-button href="{{linkExport}}" slot="end" size="small" color="light">
+          <!-- <a target="_blank" href="{{linkExport}}">Exportar</a> -->
+          <ion-icon slot="start" name="cloud-download-outline"></ion-icon>
+          Exportar csv
+        </ion-button>
+      </ion-item>
+    </div>
+    <ion-row>
+      <ion-col size=12>
+        <ion-card color="light" class="advanced sys-card table-component">
+          <ion-progress-bar *ngIf="isLoading" color="light" type="indeterminate"></ion-progress-bar>
+          <!-- header item -->
+          <ion-item button detail detail-icon="chevron-down" color="light" lines="full" (click)="util.toogleCard($event)">
+            <ion-icon color="medium" slot="start" name="options"></ion-icon>
+            <ion-text>Componentes</ion-text>
+          </ion-item>
+          <!-- content item -->
+          <ion-card-content class="card-collapse-on">
+            <div class="example-container mat-card-content mat-elevation-z0">
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container *ngFor="let column of columns; let i = index">
+                  <ng-container [matColumnDef]="column" sticky="{{ i == 0 ? true:false}}">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ columnsName ? columnsName[i] : '-' }} </th>
+                    <td mat-cell class="item-row" *matCellDef="let element" style="text-align: center; cursor: pointer"
+                      (click)="goDetail(element)">
+                      <!-- component/forms/{{element[column]}} -->
+                      <a href="javascript:void(0);" *ngIf="i==0">
+                        #<strong>{{element[column]}}</strong>
+                      </a>
+                      <ng-container *ngIf="i!=0">
+                        {{ element[column] }}
+                      </ng-container>
+                    </td>
+                  </ng-container>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                <tr [ngClass]="{'tr_0': (row.id%2) == 0, 'highlight': selectedRowIndex == row.id}" (click)="selectItem(row)"
+                  mat-row *matRowDef="let row; columns: columns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">No hay datos</td>
+                </tr>
+              </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[20,30,40,50,80,100]"></mat-paginator>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+
+</ion-content>

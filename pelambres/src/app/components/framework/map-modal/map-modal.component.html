@@ -1,0 +1,13 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss(false)">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<div class="content-map">
+  <go-map [maxHeight]="maxHeight" [latitude]="latitude" [longitude]="longitude" ></go-map>
+</div>

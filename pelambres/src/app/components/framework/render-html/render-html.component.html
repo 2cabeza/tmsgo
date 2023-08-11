@@ -1,0 +1,5 @@
+<ion-label
+style="width: 100%; height: 100%;"
+*ngIf="renderedHtml" 
+[innerHTML]="renderedHtml | safe: 'html'">
+</ion-label>

@@ -1,0 +1,10 @@
+<ion-header>              
+  <ion-toolbar>      
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<embed *ngIf="media"  [src]="media | safe: 'resourceUrl'" height="100%"  class="link media">

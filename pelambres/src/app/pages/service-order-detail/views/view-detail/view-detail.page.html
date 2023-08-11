@@ -1,0 +1,131 @@
+<ion-content>
+  <ion-card color="light" class="sys-card">
+    <!-- header item -->
+    <ion-item class="card-header" button detail detail-icon="chevron-down" color="light" lines="full" (click)="util.toogleCard($event)">
+      <ion-badge *ngIf="item.type" slot="start" class="circle">
+        <h2>{{ item.type.code }}</h2> 
+      </ion-badge>
+      <ion-text><h5>Servicio No. </h5></ion-text>
+      <ion-badge size="small" color="light" >
+        {{ (item.type ? item.type.code : '') + item.id }}
+      </ion-badge>
+      <ion-badge *ngIf="item.status" size="small" slot="end" [ngStyle]=" item.status ? util.setStyleTextColor(item.status.color) : ''">
+        {{item.status.description}}
+      </ion-badge>
+    </ion-item>
+    <ion-card-content class="card-collapse-100-off">
+        <div class="card-content-inline">
+          <!-- details item -->
+          <span class="pipe">
+            <ion-icon color="medium"  name="calendar"></ion-icon> 
+            <ion-label>Tipo servicio:</ion-label>
+            <ion-chip *ngIf="item.type" class="chip-small">
+              <ion-label>{{ item.type.name }}</ion-label>
+            </ion-chip>
+        </span>
+
+          <span class="pipe">
+              <ion-icon color="medium"  name="calendar"></ion-icon> 
+              <ion-label>Fecha de salida:</ion-label>
+              <ion-chip class="chip-small">
+                <ion-label>{{util.getDateFormat(item.service_date)}}</ion-label>
+              </ion-chip>
+          </span>
+
+          <span class="pipe" *ngIf="item.estimated_closing_date">
+              <ion-icon color="medium"  name="calendar"></ion-icon> 
+              <ion-label>Llegada estimada:</ion-label>
+              <ion-chip size="small" class="chip-small">
+                <ion-label>{{util.getDateFormat(item.estimated_closing_date)}}</ion-label>
+              </ion-chip>
+          </span>
+
+          <span class="pipe" *ngIf="item.equipments">
+            <ion-icon color="medium"  name="calendar"></ion-icon> 
+            <ion-label class="fixed">Equipo(s):</ion-label>
+            <small>
+              <ion-chip size="small" class="chip-small" *ngFor="let e of item.equipments; let i = index;">
+              <ion-label>{{e.equipment.patent}}</ion-label>
+            </ion-chip>
+            </small>
+          </span>
+
+          <span class="pipe" *ngIf="item.drivers">
+            <ion-icon color="medium"  name="calendar"></ion-icon> 
+            <ion-label class="fixed">Conductor(es):</ion-label>
+            <small>
+              <ion-chip size="small" class="chip-small" *ngFor="let d of item.drivers; let i = index;">
+                <ion-label *ngIf="d.driver.user_profile">
+                  {{(i+1)}}. 
+                  {{d.driver.user_profile.user.first_name}}
+                  {{d.driver.user_profile.user.last_name}}
+                </ion-label>
+              </ion-chip>
+            </small>
+            
+          </span>
+          <!-- travels line -->
+          <ion-item color="light" lines="none" class="line">
+            <ion-icon slot="start" color="medium" name="rocket-outline"></ion-icon>
+            <ion-label color="medium">Viaje:</ion-label>
+          </ion-item>
+  
+          <span class="pipe">
+            <ion-icon color="medium"  name="calendar"></ion-icon> 
+            <ion-label>Origen:</ion-label>
+            <app-btn-subsidiary *ngIf="item.origin"
+              [subsidiary]='item.origin'>
+            </app-btn-subsidiary>
+          </span>
+
+          <span class="pipe">
+            <ion-icon color="medium"  name="calendar"></ion-icon> 
+            <ion-label>Destino:</ion-label>
+            <app-btn-subsidiary *ngIf="item.destination"
+              [subsidiary]='item.destination'>
+            </app-btn-subsidiary>
+          </span>
+  
+  
+        </div>
+    </ion-card-content>
+    <!-- footer item -->
+  </ion-card>
+  
+  <ion-card color="light" class="sys-card">
+    <!-- header item -->
+    <ion-item class="card-header" button detail detail-icon="chevron-down" color="light" lines="full" (click)="util.toogleCard($event)">
+      <ion-icon slot="start" name="reader-outline"></ion-icon>
+      <ion-text><h5>Bitácora</h5></ion-text>
+    </ion-item>
+    <ion-card-content class="card-collapse-on">
+      <ion-grid class="sys-table">
+        <ion-row>
+        <ion-col size="1">#</ion-col>
+        <ion-col size="1.5">Tipo</ion-col>
+        <ion-col size="3">Fecha</ion-col>
+        <ion-col size="2">Hora</ion-col>
+        <ion-col size="3">KM</ion-col>
+        <ion-col size="1.5"><ion-icon  name="information-circle-outline"></ion-icon></ion-col>
+        </ion-row>
+        <ng-container *ngFor="let work of item.work_logs; let i = index;">
+        <ion-row [ngClass]="i % 2 === 0 ? 'row-color' : ''">
+        <ion-col size="1" ><ion-icon color="{{this.getTypeColor(work.type.name)}}" name="bookmark-sharp"></ion-icon></ion-col>
+        <ion-col size="1.5">{{this.util.setCapitalize(work.type.name)}}</ion-col>
+        <ion-col size="3">{{this.util.getDateFormat(work.created,'DD-MM-YYYY')}}</ion-col>
+        <ion-col size="2">{{this.util.getDateFormat(work.created,'HH:mm')}}</ion-col>
+        <ion-col size="3">{{work.value}}</ion-col>
+        <ion-col size="1.5"><ion-icon size="large" name="information-circle-outline"></ion-icon></ion-col>
+        </ion-row>
+        </ng-container>
+        <ion-row class="row-color" size="12" *ngIf="item.work_logs.length == 0">
+        <ion-col>
+        <ion-label>No hay registros en la bitácora.</ion-label>
+        </ion-col>
+        </ion-row>
+        </ion-grid>
+    </ion-card-content>
+    <!-- footer item -->
+  </ion-card>
+
+</ion-content>

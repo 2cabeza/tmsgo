@@ -1,0 +1,27 @@
+ion-row.header-worklog{
+    
+    ion-col{
+      background-color: #17191b;
+      color: #FFFFFF;
+    }
+}
+
+ion-fab-button{
+  --margin-bottom:100px;
+  bottom: 100px;
+}
+
+.fab{
+  position: fixed;
+  width: 93%;
+  height: auto;
+  bottom: 60px;
+}
+
+// ion-modal, .add-element, ion-backdrop{
+//   --backdrop-opacity:0.5;
+//   --background:#17191b;
+//   --border-width:50px;
+//   --max-width:200px;
+//   --max-height:200px;
+// }

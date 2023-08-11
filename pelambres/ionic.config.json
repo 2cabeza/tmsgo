@@ -1,0 +1,7 @@
+{
+  "name": "logics",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

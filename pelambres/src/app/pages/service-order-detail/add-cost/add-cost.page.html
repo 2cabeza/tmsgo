@@ -1,0 +1,94 @@
+<ng-container *ngTemplateOutlet="memberTemplate; context:{w: windowType }"></ng-container>
+  <ng-template #memberTemplate let-window="w">
+    <ng-container *ngIf="window">
+      <ion-header *ngIf="window == 'popup'">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="dismiss()">
+              <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Agregar Rendiciones</ion-title>
+        </ion-toolbar>
+      </ion-header>
+    </ng-container>
+    <app-header-bar titulo="Rendición de gastos" *ngIf="!window">
+    </app-header-bar>
+  </ng-template>
+
+
+<ion-content>
+  <div class="main">
+    <form [formGroup]="form" (click)="_event($event)" (ngSubmit)="onSubmit()">
+      <ion-card color="light" class="sys-card">
+        <!-- header item -->
+        <ion-item class="card-header" color="light" lines="full">
+          <ion-icon slot="start" name="cash-outline"></ion-icon>
+          <ion-text>
+            <h5>Registrar Gasto</h5>
+          </ion-text>
+        </ion-item>
+        <ion-card-content class="card-collapse-on">
+          <ion-grid class="main">
+            <!-- title (click)="_event($event)"-->
+
+            <ion-row>
+              <ion-col size="12">
+                <ion-label color="medium">Ingrese valores</ion-label>
+              </ion-col>
+              <ion-col size="12">
+                <!-- equipments -->
+                <app-go-select [many]="equipmentMany" [reset]="reset" type="equipments" [form]="form" text="equipo"
+                  value="patent">
+                </app-go-select>
+              </ion-col>
+              <ion-col size="12">
+                <ion-item color="light" lines="full">
+                  <ion-label color="medium" position="stacked">Tipo Costo</ion-label>
+                  <ion-select interface="popover" name="cost_type" placeholder="Seleccione" formControlName="cost_type">
+                    <ion-select-option *ngFor="let item of costtypes" [value]="item">
+                      {{item.name}} ({{item.code}})
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12">
+                <ion-item color="light" lines="full">
+                  <ion-label color="medium" position="floating">Monto <small>$pesos</small></ion-label>
+                  <ion-input type="number" name="value1" formControlName="value1"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ng-container *ngIf="form.controls.cost_type.valid">
+                <ion-col size="12" *ngIf="form.value.cost_type.has_double_value">
+                  <ion-item color="light" lines="full">
+                    <ion-label color="medium" position="floating">Litros</ion-label>
+                    <ion-input type="number" name="value2" formControlName="value2"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ng-container>
+              <ion-col size="12">
+                <ion-item color="light" lines="full">
+                  <ion-label color="medium" position="floating">Observación</ion-label>
+                  <ion-textarea formControlName="observation" placeholder="Agregar mas información aquí...">
+                  </ion-textarea>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12">
+                <app-uploadfile [form]="form" [reset]="reset"></app-uploadfile>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </ion-card-content>
+        <!-- footer item -->
+        <ion-item lines="none" color="light">
+          <ion-button [disabled]="!form.valid" type="submit" color="dark" size="large" slot="end">
+            <ion-icon name="save-outline"></ion-icon>
+            <ion-label class="icon">Agregar</ion-label>
+          </ion-button>
+        </ion-item>
+      </ion-card>
+    </form>
+  </div>
+
+</ion-content>

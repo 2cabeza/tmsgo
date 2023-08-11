@@ -1,0 +1,13 @@
+<ion-button slot="end" color="medium" [disabled]="disabled">
+  <input
+  (change)="uploadFile($event)"
+  type="file"
+  name="file{{id}}{{session_}}"
+  id="file{{id}}{{session_}}"
+  class="fileInput" />
+  <label for="file{{id}}{{session_}}">
+    <ion-icon class="up-icon" name="add-outline" *ngIf="!isLoading"></ion-icon> 
+    <ion-spinner class="up-icon" name="crescent" *ngIf="isLoading"></ion-spinner>
+    <ion-text>Agregar archivo</ion-text>
+  </label>
+</ion-button> 

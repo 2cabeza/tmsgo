@@ -1,0 +1,28 @@
+<ion-progress-bar color="secondary" buffer="0.1" *ngIf="uploadPercent | async as pct" value="{{(pct / 100)| number:'1.0-0'}}"></ion-progress-bar>
+<!-- <label *ngIf="uploadPercent | async as pct">- {{(pct) | number:'1.0-0'}}</label> -->
+<ion-item color="light" lines="full">
+  <ion-chip color="medium" *ngFor="let file of temps">
+    <ion-icon name="attach"></ion-icon>
+    <ion-label color="dark">{{ file.name }}</ion-label>
+    <!-- <ion-icon class="close" size="small" name="close-circle"></ion-icon> -->
+  </ion-chip>
+  <ion-chip color="medium" *ngFor="let file of files">
+    <ion-icon name="attach"></ion-icon>
+    <ion-label color="dark">{{ file.name }}</ion-label>
+    <ion-icon class="close" size="small" name="close-circle"></ion-icon>
+  </ion-chip>
+  <ion-button slot="end" color="medium">
+    <input
+    (change)="uploadFile($event)"
+    type="file"
+    name="file"
+    id="file"
+    class="fileInput" />
+    <label for="file">
+      <ion-icon name="attach" *ngIf="!uploadPercent"></ion-icon> 
+      <ion-spinner name="crescent" *ngIf="uploadPercent | async as pct"></ion-spinner>
+      Adjuntar archivo
+    </label>
+  </ion-button> 
+
+</ion-item>

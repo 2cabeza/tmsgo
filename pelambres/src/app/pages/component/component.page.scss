@@ -1,0 +1,189 @@
+.example-container {
+  height: 65%;
+  width: 100%;
+  max-width: 100%;
+
+  
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  
+  td{
+    font-size: 12px !important;
+    padding: inherit 18px;
+
+  }
+  a{
+    margin: auto;
+  }
+}
+
+.table-component{
+  bottom: 2px;
+  position: relative;
+}
+
+.item-row:hover{
+  opacity: 0.7;
+}
+
+:host  ::ng-deep th.mat-header-cell,  ::ng-deep td.mat-cell, ::ng-deep td.mat-footer-cell {
+  white-space: nowrap;
+  *{
+    white-space: nowrap;
+  }
+  
+}
+
+td.mat-column-star {
+  width: 20px;
+  padding-right: 8px;
+  
+}
+
+:host ::ng-deep th{
+  white-space: nowrap;
+  *{
+    white-space: nowrap;
+  }
+  
+}
+
+// th.mat-column-position, td.mat-column-position {
+//   padding-left: 8px;
+  
+// }
+
+::ng-deep .mat-sort-header-button{
+  white-space: nowrap;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: center;
+}
+
+.mat-table-sticky-border-elem-right {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-table-sticky-border-elem-left {
+  border-right: 1px solid #e0e0e0;
+}
+
+:host ::ng-deep td.mat-column-id {
+    text-align: center;
+    padding-right:20px
+}
+
+:host ::ng-deep td.mat-column-description {
+  text-align: left;
+}
+
+
+
+::ng-deep td.mat-column-created, 
+::ng-deep td.mat-column-modified {
+
+  white-space: nowrap !important;
+}
+
+.tr_0{
+  background-color: #f3f3f3;
+}
+
+
+// .flex-container {
+//     padding: 0;
+//     margin: 0;
+//     list-style: none;
+//     border: none;
+//     -ms-box-orient: horizontal;
+//     display: -webkit-box;
+//     display: -moz-box;
+//     display: -ms-flexbox;
+//     display: -moz-flex;
+//     display: -webkit-flex;
+//     display: flex;
+// }
+
+// .wrap    {
+//     -webkit-flex-wrap: wrap;
+//     flex-wrap: wrap;
+// }
+
+// @media (max-width: 500px) {
+
+//     .flex-container.wrap > div{
+//         width: 50%;
+//         max-width: 50%;
+//         text-overflow: '';
+//         white-space:nowrap;
+//         overflow: hidden;
+//     }
+
+// }
+
+.datatable {
+    height: calc(70vh);
+  }
+  
+  ::ng-deep .progress-linear {
+    position: fixed !important;
+    bottom: 0px;
+  }
+
+  .container-dt{
+      margin: 12px;
+  }
+
+//   @media screen and (max-width: 800px) {
+//     .desktop-hidden {
+//       display: initial;
+//     }
+//     .mobile-hidden {
+//       display: none;
+//     }
+//   }
+//   @media screen and (min-width: 800px) {
+//     .desktop-hidden {
+//       display: none;
+//     }
+//     .mobile-hidden {
+//       display: initial;
+//     }
+//   }
+
+.container-dt ion-icon{
+    cursor: pointer;
+}
+
+// .ngx-datatable.material.single-selection .datatable-body-row.active, .ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group, .ngx-datatable.material.multi-selection .datatable-body-row.active, .ngx-datatable.material.multi-selection .datatable-body-row.active .datatable-row-group, .ngx-datatable.material.multi-click-selection .datatable-body-row.active, .ngx-datatable.material.multi-click-selection .datatable-body-row.active .datatable-row-group{
+//     background-color: #f4e9c9 !important;
+// }
+
+.status{
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  background-color: #becde9;
+  font-size: 9px;
+  margin: 2px;
+  padding: 4px;
+}
+
+._chip{
+  margin: 2px;
+  padding: 4px;
+  background-color: #DDDDDD;
+  border-radius: 3px;
+}
+
+.blue{
+  background-color: #8fa9e0;
+  
+}
+
+// host ::ng-deep .datatable-body-row.active .datatable-row-group {
+//     background-color: #f4e9c9 !important;
+//     }

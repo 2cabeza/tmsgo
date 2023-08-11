@@ -1,0 +1,80 @@
+// .menu-wrapper{
+//   // position: absolute;
+//   // height: 100%;
+//   // background: #212428;
+// }
+
+// ion-menu{
+//   --background: #212428;
+// }
+
+.menu-wrapper {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+
+  .org {
+    cursor: pointer;
+    margin: 8px;
+    ion-label {
+      font-weight: bold;
+    }
+  }
+
+  .providers{
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.logo-menu {
+  width: 50%;
+  height: auto;
+  margin: 25px auto 0 auto;
+  display: block;
+}
+
+.avatar {
+  margin: 10% 5% 2px 5px;
+
+  .tag {
+    margin-top: 12px;
+  }
+}
+
+.avatar ion-chip {
+  width: 100%;
+}
+
+.avatar ion-label {
+  color: rgb(177, 177, 177);
+}
+
+ion-menu ion-list {
+  background: none;
+  ion-label {
+    text-transform: capitalize;
+    margin-left: 6px;
+    font-weight: 400px;
+    font-size: 13px;
+  }
+  ion-icon {
+    margin-top: 2px;
+  }
+}
+
+ion-menu ion-item-divider {
+  background: none;
+  border-bottom: none;
+  padding: 10px 0px 0px 15px;
+
+  ion-label {
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.3;
+  }
+}

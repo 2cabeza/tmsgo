@@ -1,0 +1,79 @@
+<ion-header>              
+	<ion-toolbar>      
+		<ion-buttons slot="start">
+			<ion-button (click)="dismiss()">
+				<ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<div>
+		<ion-segment mode="ios" value="{{tab_active}}" (ionChange)="changeTabsServicio($event)" color="dark">
+			<ion-segment-button [attr.disabled]="start_tab_disabled" value="iniciar">
+				<ion-label color="dark">INICIAR</ion-label>
+			</ion-segment-button>
+			<ion-segment-button value="reportar">
+				<ion-label color="dark">REPORTAR</ion-label>
+			</ion-segment-button>
+			<ion-segment-button [attr.disabled]="end_tab_disabled" value="finalizar">
+				<ion-label color="dark">FINALIZAR</ion-label>
+			</ion-segment-button>
+		</ion-segment>
+	<!-- accions blocks  -->
+		<ion-grid>
+			<ion-row>
+				<ion-col offset-md="1" size-md="10" size-xs="12" *ngIf="viewInicioServicio">
+					<div class="form-inciar" [attr.disabled]="start_tab_disabled">
+						<ion-item color="light" lines="full">
+							<ion-label color="medium" position="floating">Kilómetraje Inicial</ion-label>
+							<ion-input #km1 type="number" name="kmInicial" [(ngModel)]="this.kmInicial"></ion-input>
+						</ion-item>
+						
+						<ion-item color="light" lines="full" style="display:none">
+							<ion-label color="medium" position="floating">Observación</ion-label>
+							<ion-textarea name="detalleEvento"></ion-textarea>
+						</ion-item>
+						<ion-button [attr.disabled]="(km1.value>0 && start_tab_disabled==false) ? false:true" size="large" expand="full" color="success" (click)="this.registrarEvento(1)">INICIAR SERVICIO</ion-button>
+
+						<!-- <label class="mobile-label">Kilometros inicial </label>
+						<input #km1 type="number" name="kmInicial" [(ngModel)]="this.kmInicial" placeholder="Kilometraje actual">
+						<label style="opacity: 0;" class="top-30">Detalle</label>
+						<textarea style="opacity: 0;" name="detalleEvento"></textarea>
+						<ion-button [attr.disabled]="(km1.value.length>0 && start_tab_disabled==false) ? false:true" size="medium" shape="round" expand="full" color="success" (click)="this.registrarEvento(1)">INICIAR SERVICIO</ion-button> -->
+					</div>
+				</ion-col>
+
+				<ion-col offset-md="1" size-md="10" size-xs="12" *ngIf="viewRegistroEvento">
+					<div class="form-actualizar">
+						<ion-item color="light" lines="full">
+							<ion-label color="medium" position="floating">Kilómetraje en el evento</ion-label>
+							<ion-input #km2 type="number" name="kmEvento" [(ngModel)]="this.kmEvento" ></ion-input>
+						</ion-item>
+						
+						<ion-item color="light" lines="full">
+							<ion-label color="medium" position="floating">Observación</ion-label>
+							<ion-textarea name="detalleEvento" [(ngModel)]="this.descripcionEvento"></ion-textarea>
+						</ion-item>
+						<ion-button [attr.disabled]="(km2.value>0) ? false:true" size="large" expand="full" color="dark" (click)="this.registrarEvento(3)">REPORTAR EVENTO</ion-button>
+					</div>
+				</ion-col>
+
+				<ion-col offset-md="1" size-md="10" size-xs="12" *ngIf="viewCierreServicio">
+					<div class="form-cerrar">
+						<ion-item color="light" lines="full">
+							<ion-label color="medium" position="floating">Kilómetraje final</ion-label>
+							<ion-input #km3 type="number" name="kmFinal" [(ngModel)]="this.kmFinal" ></ion-input>
+						</ion-item>
+						
+						<ion-item color="light" lines="full">
+							<ion-label color="medium" position="floating">Observacion final</ion-label>
+							<ion-textarea name="observacionFinal" [(ngModel)]="this.observacionFinal"></ion-textarea>
+						</ion-item>
+						<ion-button [attr.disabled]="(km3.value>0) ? false:true" size="large" expand="full" color="danger" (click)="this.registrarEvento(2)">FINALIZAR SERVICIO</ion-button>
+					</div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+</ion-content>

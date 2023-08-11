@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "logics-e795d"
+  },
+  "targets": {
+    "logics-e795d": {
+      "hosting": {
+        "prod": [
+          "logics-e795d"
+        ],
+        "pelambres": [
+          "pelambres"
+        ]
+      }
+    }
+  }
+}
