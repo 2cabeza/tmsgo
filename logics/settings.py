@@ -28,7 +28,7 @@ SECRET_KEY = 'jvc8r1b6m)g%i=)8c4d$@shdo*-q5^+dh!e39^1fg9wrb@q&h^'
 DEBUG = True
 
 #ALLOWED_HOSTS = ['demo-admin.tmsgo.cl', 'admin.tmsgo.cl',  'localhost', 'sms-admin.tmsgo.cl']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['tmsgo-pboz.onrender.com']
 
 
 # Application definition
