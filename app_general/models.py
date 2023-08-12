@@ -515,7 +515,7 @@ class FieldsPermission(SoftDeletableModel):
 class Process(OrganizationRelatedModel, SoftDeletableModel):
     module = models.CharField(
         max_length=100,
-        choices=get_apps(),
+         choices=lambda: get_apps(),
         blank=True,
         verbose_name=_('module'))
     workflow_name = models.CharField(
