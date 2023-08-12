@@ -263,9 +263,6 @@ def get_apps():
         value = '{}.{}'.format(model.app_label, _(model.model))
         tuple_ = (index, value)
         res.append(tuple_)
-    # print('res', res)
-    # for item in res:
-    #     print('item', item)
     return res
 
 
