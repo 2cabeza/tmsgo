@@ -145,7 +145,7 @@ CORS_ALLOW_METHODS = [
 #    }
 #}
 # Database
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fbdb_zu0l',
@@ -154,9 +154,9 @@ CORS_ALLOW_METHODS = [
         'USER': 'fbdb_user',
         'PASSWORD': 'TKcQJwSOqN7FzBDzurl30vaRX5fkr9ku',
     }
-}"""
+}
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
@@ -168,7 +168,7 @@ DATABASES = {
             'options': '-c timezone=UTC',
         },
     }
-}
+}"""
 
 
 # Api Rest Framework
