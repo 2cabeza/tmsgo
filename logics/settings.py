@@ -28,7 +28,7 @@ SECRET_KEY = 'jvc8r1b6m)g%i=)8c4d$@shdo*-q5^+dh!e39^1fg9wrb@q&h^'
 DEBUG = True
 
 #ALLOWED_HOSTS = ['demo-admin.tmsgo.cl', 'admin.tmsgo.cl',  'localhost', 'sms-admin.tmsgo.cl']
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'tmsgo-pboz.onrender.com']
 
 
 # Application definition
@@ -284,9 +284,9 @@ RELATIVE_IMAGE_PATH = 'images/%Y/%m/orig'
 IMAGE_PATH = os.path.join(MEDIA_ROOT, RELATIVE_IMAGE_PATH)
 MEDIA_URL = '{}://{}/media/upload/'.format('https', 'sms-admin.tmsgo.cl')
 ROOT_URL = '{}://{}'.format('https', 'sms-admin.tmsgo.cl')
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
+ STATICFILES_DIRS = [
+     os.path.join(BASE_DIR, "static"),
+ ]
 
 CKEDITOR_UPLOAD_PATH = '/static/upload/'
 CKEDITOR_CONFIGS = {
