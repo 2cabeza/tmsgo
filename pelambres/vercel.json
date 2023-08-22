@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "name": "pelambres",
+  "builds": [
+    {
+      "src": "pelambres/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "outputDirectory": "dist/pelambres"
+      }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*\\.(css|js|jpg|png|svg|ico|woff|woff2))$",
+      "destination": "/dist/pelambres/$1"
+    },
+    {
+      "source": "/(assets/.*)",
+      "destination": "/dist/pelambres/$1"
+    },
+    {
+      "source": "/.*",
+      "destination": "/dist/pelambres/index.html"
+    }
+  ]
+}
