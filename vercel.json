@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "name": "pelambres",
+  "builds": [
+    {
+      "src": "/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "outputDirectory": "dist/pelambres"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*\\.(css|js|jpg|png|svg|ico|woff|woff2))$",
+      "dest": "/dist/pelambres/$1"
+    },
+    {
+      "src": "/(assets/.*)",
+      "dest": "/dist/pelambres/$1"
+    },
+    {
+      "src": "/.*",
+      "dest": "/dist/pelambres/index.html"
+    }
+  ]
+}
