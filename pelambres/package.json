@@ -3,16 +3,19 @@
   "version": "0.0.2",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "ng": "ng",
-    "vercel-build": "ng build --prod"
+    "vercel-build": "ng build --prod",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ngcc",
-    "vercel-build": "ng build --prod"
+      "vercel-build": "ng build --prod"
   },
   "private": true,
   "resolutions": {
