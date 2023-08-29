@@ -3,25 +3,25 @@
   "name": "pelambres",
   "builds": [
     {
-      "src": "pelambres/package.json",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "outputDirectory": "dist/pelambres"
+        "outputDirectory": "src"
       }
     }
   ],
   "rewrites": [
-    {{
-      "source": "^/(.*\\.(css|js|jpg|png|svg|ico|woff|woff2))$",
-      "destination": "/path_to_your_asset_folder/$1"
+    {
+      "source": "/(.*\\.(css|js|jpg|png|svg|ico|woff|woff2))$",
+      "destination": "/src/$1"
     },
     {
       "source": "/(assets/.*)",
-      "destination": "/dist/pelambres/$1"
+      "destination": "/src/$1"
     },
     {
-      "source": "/.*",
-      "destination": "/dist/pelambres/index.html"
+      "source": "/(.*)",
+      "destination": "/src/index.html"
     }
   ]
 }
