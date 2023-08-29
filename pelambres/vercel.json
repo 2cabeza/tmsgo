@@ -11,9 +11,9 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/(.*\\.(css|js|jpg|png|svg|ico|woff|woff2))$",
-      "destination": "/dist/pelambres/$1"
+    {{
+      "source": "^/(.*\\.(css|js|jpg|png|svg|ico|woff|woff2))$",
+      "destination": "/path_to_your_asset_folder/$1"
     },
     {
       "source": "/(assets/.*)",
